@@ -1,0 +1,4 @@
+.storybook/
+build/
+dist/
+node_modules/

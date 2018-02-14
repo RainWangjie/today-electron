@@ -1,0 +1,17 @@
+[ignore]
+.*/.electron-vue/.*
+.*/.vscode/.*
+.*/build/.*
+.*/dist/.*
+.*/static/.*
+
+[include]
+
+[libs]
+flow-typed
+
+[lints]
+
+[options]
+
+[strict]
