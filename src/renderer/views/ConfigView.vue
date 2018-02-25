@@ -12,7 +12,8 @@
             </p>
             <p class="input-container">
               <input-box v-model="username"
-                         placeholder="Username">
+                         placeholder="Username"
+                         :embedded="true">
               </input-box>
             </p>
             <button-base type="primary"

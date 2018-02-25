@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <div class="header" style="-webkit-app-region: drag"></div>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -8,8 +7,6 @@
 </template>
 
 <script>
-// @flow
-
 import { ipcRenderer } from 'electron'
 import { mapActions, mapMutations } from 'vuex'
 import nodeSchedule from 'node-schedule'

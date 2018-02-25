@@ -1,23 +1,32 @@
 <template>
   <div class="item-header-component">
+    <div class="background-image-wrapper">
+      <img class="background-image"
+           :src="backgroundImage">
+    </div>
     <div class="current-list-item">
       <h1 class="title">
         {{ title }}
       </h1>
-      <p class="today" v-if="showDate">
+      <p class="today"
+         v-if="showDate">
         {{ formattedToday }}
       </p>
     </div>
-    <div class="sort-mode-wrapper" @click="_openSortModeSelector">
+    <div class="sort-mode-wrapper"
+         @click="_openSortModeSelector">
       <span class="displayer">
         Sort
         <i class="fa fa-sort"></i>
       </span>
       <div class="dropdown-wrapper">
-        <dropdown ref="sortModeDropdown" transition-type="topright">
+        <dropdown ref="sortModeDropdown"
+                  transition-type="topright">
           <ul class="mode-items">
-            <li class="mode-item" :class="{'current': sortMode === mode.mode}"
-                v-for="mode in sortModes" :key="mode.mode"
+            <li class="mode-item"
+                :class="{'current': sortMode === mode.mode}"
+                v-for="mode in sortModes"
+                :key="mode.mode"
                 @click="handleSortModeChange(mode.mode)">
               {{ mode.desc }}
             </li>
@@ -26,15 +35,17 @@
       </div>
     </div>
     <transition name="fade">
-      <div class="suggest-wrapper" @click="_openSuggestionDialog"
+      <div class="suggest-wrapper"
+           @click="_openSuggestionDialog"
            v-if="currentSpecialListItemTitle && currentSpecialListItemTitle === 'Today'">
         <div class="btn-wrapper">
           <i class="fa fa-lightbulb-o"></i>
           Suggest
         </div>
         <div class="dropdown-wrapper">
-          <dropdown ref="suggestionDropdown" transition-type="topright">
-            <suggestion-view ref="suggestion"></suggestion-view>
+          <dropdown ref="suggestionDropdown"
+                    transition-type="topright">
+            <suggestion-view ref="suggestion" />
           </dropdown>
         </div>
       </div>
@@ -78,6 +89,13 @@
       formattedToday () {
         return getFormattedDate(this.today)
       },
+      backgroundImage () {
+        // if (this.currentSpecialListItemTitle === 'Today') {
+        //   return '/static/images/unsplash/today.jpg'
+        // }
+        // return '/static/images/unsplash/header-todo.jpg'
+        return '/static/images/unsplash/today.jpg'
+      },
       ...mapGetters([
         'currentListItem',
         'currentSpecialListItemTitle',
@@ -105,99 +123,110 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '../assets/style/mixins.styl';
-  @import '../assets/style/variables.styl';
+@import '../assets/style/mixins.styl';
+@import '../assets/style/variables.styl';
 
-  .item-header-component {
-    position: relative;
-    width: 100%;
+.item-header-component {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: $background-color-grey;
+  z-index: 50;
+
+  .background-image-wrapper {
+    position: absolute;
     height: 100%;
-    background: $background-color-grey;
-    z-index: 50;
+    width: 100%;
+    overflow: hidden;
+  }
 
-    .current-list-item {
-      position: absolute;
-      left: 20px;
-      bottom: 16px;
-      color: white;
+  .background-image {
+    width: 100%;
+  }
 
-      .title {
-        font-size: 24px;
-        line-height: 24px;
+  .current-list-item {
+    position: absolute;
+    left: 20px;
+    bottom: 16px;
+    color: white;
+
+    .title {
+      font-size: 24px;
+      line-height: 24px;
+    }
+
+    .today {
+      margin-top: 4px;
+    }
+  }
+
+  .suggest-wrapper {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    transition: opacity 0.2s ease;
+
+    &.fade-enter, &.fade-leave-to {
+      opacity: 0;
+    }
+
+    .btn-wrapper {
+      padding: 8px 12px;
+      background: white;
+      border-radius: 4px;
+      color: $orange-color;
+      transition: all 0.2s ease;
+      standard-shadow();
+
+      i {
+        margin-right: 4px;
       }
 
-      .today {
-        margin-top: 4px;
+      &:hover {
+        color: $orange-color-highlighted;
+        transform: translate3d(0, -4px, 0);
       }
     }
 
-    .suggest-wrapper {
+    .dropdown-wrapper {
       position: absolute;
-      top: 16px;
-      right: 24px;
-      transition: opacity 0.2s ease;
-
-      &.fade-enter, &.fade-leave-to {
-        opacity: 0;
-      }
-
-      .btn-wrapper {
-        padding: 8px 12px;
-        background: white;
-        border-radius: 4px;
-        color: $orange-color;
-        transition: all 0.2s ease;
-        standard-shadow()
-
-        i {
-          margin-right: 4px;
-        }
-
-        &:hover {
-          color: $orange-color-highlighted;
-          transform: translate3d(0, -4px, 0);
-        }
-      }
-
-      .dropdown-wrapper {
-        position: absolute;
-        top: 36px;
-        right: 0;
-      }
+      top: 36px;
+      right: 0;
     }
+  }
 
-    .sort-mode-wrapper {
+  .sort-mode-wrapper {
+    position: absolute;
+    right: 24px;
+    bottom: 16px;
+    color: white;
+
+    .dropdown-wrapper {
       position: absolute;
-      right: 24px;
-      bottom: 16px;
-      color: white;
+      right: 0;
+      top: 20px;
 
-      .dropdown-wrapper {
-        position: absolute;
-        right: 0;
-        top: 20px;
+      .mode-items {
+        width: 140px;
 
-        .mode-items {
-          width: 140px;
+        .mode-item {
+          padding: 4px 0 4px 8px;
+          line-height: 24px;
+          font-size: 14px;
+          border-radius: 4px;
+          transition: all 0.2s;
+          color: black;
 
-          .mode-item {
-            padding: 4px 0 4px 8px;
-            line-height: 24px;
-            font-size: 14px;
-            border-radius: 4px;
-            transition: all 0.2s;
-            color: black;
+          &:hover {
+            background: $background-color-light-grey;
+          }
 
-            &:hover {
-              background: $background-color-light-grey;
-            }
-
-            &.current {
-              color: $primary-color;
-            }
+          &.current {
+            color: $primary-color;
           }
         }
       }
     }
   }
+}
 </style>

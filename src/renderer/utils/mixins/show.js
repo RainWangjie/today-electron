@@ -1,5 +1,3 @@
-// @flow
-
 export const showMixin = {
   data() {
     return {

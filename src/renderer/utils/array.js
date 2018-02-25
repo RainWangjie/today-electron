@@ -1,5 +1,3 @@
-// @flow
-
 export function findItemIndexByKey(list, array, key) {
   return list.findIndex(item => {
     return item[key] === array[key]

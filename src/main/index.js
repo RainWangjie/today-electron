@@ -22,7 +22,7 @@ const winURL =
     ? `http://localhost:9080/`
     : `file://${__dirname}/index.html/`
 
-export function createWindow() {
+export function createWindow () {
   /**
    * Initial window options
    */
@@ -52,11 +52,12 @@ export function createWindow() {
 
 app.on('ready', createWindow)
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+// 'window-all-closed' event is handled in tray.js.
+// app.on('window-all-closed', () => {
+//   if (process.platform !== 'darwin') {
+//     app.quit()
+//   }
+// })
 
 app.on('activate', () => {
   if (mainWindow === null) {

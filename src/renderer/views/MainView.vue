@@ -23,23 +23,23 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .main-view {
-    width: 100%;
-    height: 100%;
-    background: white;
+.main-view {
+  width: 100%;
+  height: 100%;
+  background: white;
 
-    &.scale-enter-active, &.scale-leave-active {
-      transition: all 0.2s;
-    }
-
-    &.scale-enter-active {
-      transition-delay: 0.15s;
-    }
-
-    &.scale-enter, &.scale-leave-to {
-      transform: scale3d(0.95, 0.95, 0);
-      transform-origin: 50% 50%;
-      opacity: 0;
-    }
+  &.scale-enter-active, &.scale-leave-active {
+    transition: all 0.2s;
   }
+
+  &.scale-enter-active {
+    transition-delay: 0.15s;
+  }
+
+  &.scale-enter, &.scale-leave-to {
+    transform: scale3d(0.95, 0.95, 0);
+    transform-origin: 50% 50%;
+    opacity: 0;
+  }
+}
 </style>

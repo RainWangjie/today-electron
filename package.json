@@ -18,8 +18,7 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "postinstall": "npm run lint:fix",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "flow": "flow"
+    "build-storybook": "build-storybook"
   },
   "build": {
     "productName": "Today",
@@ -92,7 +91,7 @@
     "css-loader": "^0.28.4",
     "del": "^3.0.0",
     "devtron": "^1.4.0",
-    "electron": "^1.7.8",
+    "electron": "1.8.2",
     "electron-builder": "^19.19.1",
     "electron-debug": "1.4.0",
     "electron-devtools-installer": "^2.2.0",
@@ -110,7 +109,6 @@
     "eslint-plugin-standard": "^3.0.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
-    "flow-bin": "^0.65.0",
     "html-webpack-plugin": "^2.30.1",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",

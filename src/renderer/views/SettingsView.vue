@@ -1,15 +1,25 @@
 <template>
   <transition name="slide">
     <div class="settings-view">
-      <div class="quit" @click="handleQuitClick">
+      <div class="quit"
+           @click="handleQuitClick">
         <i class="fa fa-arrow-down"></i>
       </div>
       <div class="content">
         <div class="avatar-wrapper">
-          <img :src="avatarUrl" :alt="username" @click="handleChangeAvatar">
+          <img :src="avatarUrl"
+               :alt="username"
+               @click="handleChangeAvatar">
         </div>
         <div class="username">
-          <input-box ref="title" placeholder="Username" :border="false" :classes="usernameCls" :value="innerUsername" @blur="handleUsernameBlur" @enter="handleUsernameEnter" @input="handleUsernameChange" />
+          <input-box ref="title"
+                     placeholder="Username"
+                     :border="false"
+                     :classes="usernameCls"
+                     :value="innerUsername"
+                     @blur="handleUsernameBlur"
+                     @enter="handleUsernameEnter"
+                     @input="handleUsernameChange" />
         </div>
         <divider />
         <!-- This is the outside container of the sticky footer effect. -->
@@ -18,11 +28,13 @@
             <div class="options">
               <div class="option border-1px horizontal">
                 <span class="desc">Play sound</span>
-                <switcher :state="playSound" @switched="handleTogglePlaySound" />
+                <switcher :state="playSound"
+                          @switched="handleTogglePlaySound" />
               </div>
               <div class="option border-1px horizontal">
                 <span class="desc">Show Open Animation</span>
-                <switcher :state="openAni" @switched="handleToggleOpenAni" />
+                <switcher :state="openAni"
+                          @switched="handleToggleOpenAni" />
               </div>
             </div>
           </div>
@@ -147,6 +159,7 @@ export default {
 .settings-view {
   full-screen();
   justify-content: center;
+  background: white;
 
   &.slide-enter-active, &.slide-leave-active {
     transition: 0.2s all;

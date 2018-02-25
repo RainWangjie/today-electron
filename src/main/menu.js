@@ -72,13 +72,29 @@ const template = [
     submenu: [
       {
         label: 'Learn More',
-        click() {
+        click () {
           require('electron').shell.openExternal('https://electron.atom.io')
         }
       }
     ]
   }
 ]
+
+if (process.platform === 'win32') {
+  const submenu = template[0].submenu
+  submenu.push({
+    type: 'separator'
+  })
+  submenu.push(
+    {
+      label: 'Settings',
+      accelerator: 'CommandOrControl+,',
+      click: (item, window, event) => {
+        window.webContents.send('go-to-settings-view')
+      }
+    }
+  )
+}
 
 if (process.platform === 'darwin') {
   template.unshift({
