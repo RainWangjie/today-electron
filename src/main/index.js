@@ -1,10 +1,14 @@
+/**
+ * This file manages application's lifecycle.
+ */
+
 'use strict'
 
-import { app, BrowserWindow, ipcMain, dialog, globalShortcut } from 'electron'
+import { app, BrowserWindow, ipcMain, dialog, Menu } from 'electron'
 import base64Img from 'base64-img'
 
-import './menu'
-import './tray'
+import menu from './menu'
+import { createTray, destroyTray, trayExists } from './tray'
 
 /**
  * Set `__static` path to static files in production
@@ -22,19 +26,15 @@ const winURL =
     ? `http://localhost:9080/`
     : `file://${__dirname}/index.html/`
 
-export function createWindow () {
-  /**
-   * Initial window options
-   */
+export function createWindow() {
   if (mainWindow) return
 
   mainWindow = new BrowserWindow({
-    height: 600,
     useContentSize: true,
+    height: 600,
     width: 800,
     minHeight: 400,
     minWidth: 656
-    // frame: false
   })
 
   mainWindow.loadURL(winURL)
@@ -45,19 +45,21 @@ export function createWindow () {
     mainWindow = null
   })
 
-  globalShortcut.register('CommandOrControl+N', () => {
-    mainWindow.webContents.send('create-new-todo')
-  })
+  Menu.setApplicationMenu(menu)
+
+  createTray()
 }
 
 app.on('ready', createWindow)
 
-// 'window-all-closed' event is handled in tray.js.
-// app.on('window-all-closed', () => {
-//   if (process.platform !== 'darwin') {
-//     app.quit()
-//   }
-// })
+app.on('window-all-closed', event => {
+  if (process.platform !== 'darwin' && !trayExists()) {
+    app.quit()
+  }
+  if (process.platform === 'darwin') {
+    app.dock.hide()
+  }
+})
 
 app.on('activate', () => {
   if (mainWindow === null) {
@@ -82,6 +84,14 @@ ipcMain.on('open-avatar-dialog', event => {
       }
     }
   )
+})
+
+ipcMain.on('put-in-tray', event => {
+  createTray()
+})
+
+ipcMain.on('remove-tray', event => {
+  destroyTray()
 })
 
 /**

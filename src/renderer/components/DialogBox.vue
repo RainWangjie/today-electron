@@ -1,15 +1,27 @@
 <template>
-  <modal :show-flag="showFlag" @quit="hide" @keydown.esc="hide">
-    <div class="dialog-box-component" @click.stop>
+  <modal :show-flag="showFlag"
+         @quit="hide"
+         @keydown.esc="hide">
+    <div class="dialog-box-component"
+         @click.stop>
       <div class="box-header">
-        <h1>{{ title }}</h1>
+        <h1>{{ title || $t('message.title') }}</h1>
       </div>
       <div class="box-body">
-        <input-box ref="inputBox" v-model="input" :placeholder="placeholder" @enter="handleEnter" @esc="hide" />
+        <input-box ref="inputBox"
+                   v-model="input"
+                   :placeholder="placeholder || $t('message.placeholder')"
+                   @enter="handleEnter"
+                   @esc="hide" />
       </div>
       <div class="box-footer">
-        <button-base type="inverse" :text="cancelText" @click="handleCancel" />
-        <button-base :hasValue="true" :text="confirmText" :value="input" @click="handleConfirm" />
+        <button-base type="inverse"
+                     :text="cancelText  || $t('message.cancel')"
+                     @click="handleCancel" />
+        <button-base :hasValue="true"
+                     :text="confirmText || $t('message.confirm')"
+                     :value="input"
+                     @click="handleConfirm" />
       </div>
     </div>
   </modal>
@@ -23,8 +35,30 @@ import Modal from './Modal'
 
 import { showMixin } from '../utils/mixins/show'
 
+const i18n = {
+  messages: {
+    en: {
+      message: {
+        title: 'Dialog Box Title',
+        placeholder: 'Dialog Box Placeholder',
+        cancel: 'Cancel',
+        confirm: 'Confirm'
+      }
+    },
+    zh: {
+      message: {
+        title: '对话框标题',
+        placeholder: '对话框占位符',
+        cancel: '取消',
+        confirm: '确认'
+      }
+    }
+  }
+}
+
 export default {
   name: 'DialogBox',
+  i18n,
   components: {
     ButtonBase,
     InputBox,
@@ -32,22 +66,10 @@ export default {
   },
   mixins: [showMixin],
   props: {
-    title: {
-      type: String,
-      default: 'Dialog Box Title'
-    },
-    placeholder: {
-      type: String,
-      default: 'Dialog Box Placeholder'
-    },
-    cancelText: {
-      type: String,
-      default: 'Cancel'
-    },
-    confirmText: {
-      type: String,
-      default: 'Confirm'
-    }
+    title: { type: String },
+    placeholder: { type: String },
+    cancelText: { type: String },
+    confirmText: { type: String }
   },
   data() {
     return {

@@ -1,7 +1,6 @@
 import { storiesOf } from '@storybook/vue'
 import { withNotes } from '@storybook/addon-notes'
 import { action } from '@storybook/addon-actions'
-
 import ButtonBase from '../renderer/components/ButtonBase'
 
 storiesOf('Button', module)

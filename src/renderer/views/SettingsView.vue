@@ -1,25 +1,15 @@
 <template>
   <transition name="slide">
     <div class="settings-view">
-      <div class="quit"
-           @click="handleQuitClick">
+      <div class="quit" @click="handleQuitClick">
         <i class="fa fa-arrow-down"></i>
       </div>
       <div class="content">
         <div class="avatar-wrapper">
-          <img :src="avatarUrl"
-               :alt="username"
-               @click="handleChangeAvatar">
+          <img :src="avatarUrl" :alt="username" @click="handleChangeAvatar">
         </div>
         <div class="username">
-          <input-box ref="title"
-                     placeholder="Username"
-                     :border="false"
-                     :classes="usernameCls"
-                     :value="innerUsername"
-                     @blur="handleUsernameBlur"
-                     @enter="handleUsernameEnter"
-                     @input="handleUsernameChange" />
+          <input-box ref="title" placeholder="Username" :border="false" :classes="usernameCls" :value="innerUsername" :embedded="true" @blur="handleUsernameBlur" @enter="handleUsernameEnter" @input="handleUsernameChange" />
         </div>
         <divider />
         <!-- This is the outside container of the sticky footer effect. -->
@@ -27,20 +17,24 @@
           <div class="options-wrapper">
             <div class="options">
               <div class="option border-1px horizontal">
-                <span class="desc">Play sound</span>
-                <switcher :state="playSound"
-                          @switched="handleTogglePlaySound" />
+                <span class="desc">{{ $t('message.playSound') }}</span>
+                <switcher :state="playSound" @switched="handleTogglePlaySound" />
               </div>
               <div class="option border-1px horizontal">
-                <span class="desc">Show Open Animation</span>
-                <switcher :state="openAni"
-                          @switched="handleToggleOpenAni" />
+                <span class="desc">{{ $t('message.animation') }}</span>
+                <switcher :state="openAni" @switched="handleToggleOpenAni" />
+              </div>
+              <div class="option border-1px horizontal">
+                <span class="desc">语言</span>
+                <div class="select-wrapper">
+                  <wz-select :options="languageOptions"></wz-select>
+                </div>
               </div>
             </div>
           </div>
           <!-- This is the sticky footer. -->
           <div class="copyright">
-            Copyright Wendell Hu 2017-18 All rights reserved
+            {{ $t('message.copyright') }}
           </div>
         </div>
       </div>
@@ -51,28 +45,56 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import { ipcRenderer } from 'electron'
-
 import InputBox from '../components/InputBox'
 import Divider from '../components/Divider'
 import Switcher from '../components/Switcher'
 import ButtonBase from '../components/ButtonBase'
 import ConfirmBox from '../components/ConfirmBox'
-
+import WzSelect from '../components/Select'
 import { extractPreferencesMixin } from '../utils/mixins/pref'
+
+const languageOptions = [
+  { title: 'English' },
+  {
+    title: '中文'
+  }
+]
+
+const i18n = {
+  messages: {
+    en: {
+      message: {
+        copyright: 'Copyright Wendell Hu 2017-18 All Rights Reserved',
+        playSound: 'Play Sound',
+        animation: 'Show Open Animation'
+      }
+    },
+    zh: {
+      message: {
+        copyright: '版权所有 Wendell Hu 2017-18 保留所有权利',
+        playSound: '播放声音',
+        animation: '启动展示题图'
+      }
+    }
+  }
+}
 
 export default {
   name: 'SettingsView',
   mixins: [extractPreferencesMixin],
+  i18n,
   components: {
     InputBox,
     Divider,
     Switcher,
     ButtonBase,
-    ConfirmBox
+    ConfirmBox,
+    WzSelect
   },
   data() {
     return {
-      innerUsername: this.username
+      innerUsername: this.username,
+      languageOptions
     }
   },
   computed: {
@@ -82,7 +104,6 @@ export default {
     ...mapGetters(['currentListItem', 'currentSpecialListItemTitle'])
   },
   created() {
-    // A handler to change avatar.
     ipcRenderer.on('avatar-generated', (event, base64code) => {
       this.setAvatar(base64code)
       this.$message({
@@ -241,6 +262,10 @@ export default {
 
         .switcher-component {
           flex: 0 0 48px;
+        }
+
+        .select-wrapper {
+          flex: 0 0 80px;
         }
       }
     }

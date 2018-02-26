@@ -13,15 +13,13 @@
             <p class="input-container">
               <input-box v-model="username"
                          placeholder="Username"
-                         :embedded="true">
-              </input-box>
+                         :embedded="true" />
             </p>
             <button-base type="primary"
                          text="Start"
                          :hasValue="true"
                          :value="username"
-                         @click="handleButtonClick">
-            </button-base>
+                         @click="handleButtonClick" />
           </div>
         </div>
       </split-frame>
@@ -31,86 +29,84 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
-  import ButtonBase from '@/components/ButtonBase'
-  import SplitFrame from '@/components/SplitFrame'
-  import InputBox from '@/components/InputBox'
+import ButtonBase from '@/components/ButtonBase'
+import SplitFrame from '@/components/SplitFrame'
+import InputBox from '@/components/InputBox'
 
-  export default {
-    name: 'config-view',
-    props: {},
-    data () {
-      return {
-        username: ''
-      }
-    },
-    computed: {},
-    methods: {
-      _goToMain () {
-        this.$router.push({
-          path: '/main'
-        })
-      },
-      handleButtonClick () {
-        this.initializeApplication({
-          initFlag: true,
-          username: this.username
-        })
-        this._goMainRoute()
-      },
-      _goMainRoute () {
-        this.$router.push({
-          path: '/main/today'
-        })
-      },
-      ...mapActions([
-        'initializeApplication'
-      ])
-    },
-    components: {
-      ButtonBase,
-      SplitFrame,
-      InputBox
+export default {
+  name: 'config-view',
+  props: {},
+  data() {
+    return {
+      username: ''
     }
+  },
+  computed: {},
+  methods: {
+    _goToMain() {
+      this.$router.push({
+        path: '/main'
+      })
+    },
+    handleButtonClick() {
+      this.initializeApplication({
+        initFlag: true,
+        username: this.username
+      })
+      this._goMainRoute()
+    },
+    _goMainRoute() {
+      this.$router.push({
+        path: '/main/today'
+      })
+    },
+    ...mapActions(['initializeApplication'])
+  },
+  components: {
+    ButtonBase,
+    SplitFrame,
+    InputBox
   }
+}
 </script>
 
 <style lang="stylus" scoped>
-  @import '../assets/style/mixins.styl';
-  @import '../assets/style/variables.styl';
+@import '../assets/style/mixins.styl';
+@import '../assets/style/variables.styl';
 
-  .config-view {
-    transition-fade();
+.config-view {
+  transition-fade();
 
-    .content-wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100%;
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
 
-      .content {
-        padding: 0 10px;
+    .content {
+      padding: 0 10px;
 
-        .title {
-          margin-bottom: 8px;
-          font-size: 36px;
-          line-height: 36px;
-        }
+      .title {
+        margin-bottom: 8px;
+        font-size: 36px;
+        line-height: 36px;
+      }
 
-        .desc {
-          margin-bottom: 8px;
-          width: 460px;
-          font-size: 16px;
-          line-height: 18px;
-          color: $text-color-dark-grey;
-        }
+      .desc {
+        margin-bottom: 8px;
+        width: 460px;
+        font-size: 16px;
+        line-height: 18px;
+        color: $text-color-dark-grey;
+      }
 
-        .input-container {
-          width: 350px;
-          margin-bottom: 8px;
-        }
+      .input-container {
+        width: 350px;
+        margin-bottom: 8px;
       }
     }
   }
+}
 </style>

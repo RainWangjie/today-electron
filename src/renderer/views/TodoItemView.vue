@@ -2,24 +2,40 @@
   <transition name="fade">
     <div class="todo-item-view">
       <div class="item-header-wrapper">
-        <todo-item-header></todo-item-header>
+        <todo-item-header />
       </div>
       <transition name="fade">
-        <div class="item-wrapper" key="items" v-if="currentTodoItems.length">
+        <div class="item-wrapper"
+             key="items"
+             v-if="currentTodoItems.length">
           <draggable v-model="draggableTodoItems">
-            <transition-group name="move" tag="ul">
-              <todo-item class="todo-item" v-for="item in draggableTodoItems" :key="item._id" :item="item" @select="handleTodoItemSelect" @contextmenu="_showContextMenu">
-              </todo-item>
+            <transition-group name="move"
+                              tag="ul">
+              <todo-item class="todo-item"
+                         v-for="item in draggableTodoItems"
+                         :key="item._id"
+                         :item="item"
+                         @select="handleTodoItemSelect"
+                         @contextmenu="_showContextMenu" />
             </transition-group>
           </draggable>
         </div>
-        <div class="blank-view-wrapper" key="blank" v-else>
-          <blank-view :info="blankInfo" />
+        <div class="blank-view-wrapper"
+             key="blank"
+             v-else>
+          <blank-view :info="$t('message.blankInfo')" />
         </div>
       </transition>
-      <add-item-btn key="add" @add="_openAddTodoDialog" />
-      <dialog-box ref="dialog" :title="addTodoTitle" :placeholder="addTodoPlaceholder" :confirmText="addTodoConfirm" @confirm="_addTodoItem" />
-      <context-menu ref="contextMenu" :commands="commands" @select="handleContextMenuSelect" />
+      <add-item-btn key="add"
+                    @add="_openAddTodoDialog" />
+      <dialog-box ref="dialog"
+                  :title="$t('message.addTodoTitle')"
+                  :placeholder="$t('message.addTodoPlaceholder')"
+                  :confirmText="$t('message.addTodoConfirm')"
+                  @confirm="_addTodoItem" />
+      <context-menu ref="contextMenu"
+                    :commands="commands"
+                    @select="handleContextMenuSelect" />
       <router-view></router-view>
     </div>
   </transition>
@@ -64,15 +80,30 @@ const sorters = {
   }
 }
 
+const i18n = {
+  messages: {
+    en: {
+      message: {
+        addTodoTitle: 'Add New Task',
+        addTodoPlaceholder: 'Task Description',
+        addTodoConfirm: 'Add',
+        blankInfo: 'No Tasks'
+      }
+    },
+    zh: {
+      message: {
+        blankInfo: '暂无任务',
+        addTodoTitle: '添加新任务',
+        addTodoPlaceholder: '任务描述',
+        addTodoConfirm: '添加'
+      }
+    }
+  }
+}
+
 export default {
   name: 'todo-item-view',
-  data: () => ({
-    // FIXME: i18n.
-    addTodoTitle: 'Add New Task',
-    addTodoPlaceholder: 'Task Description',
-    addTodoConfirm: 'Add',
-    blankInfo: 'No Tasks'
-  }),
+  i18n,
   computed: {
     draggableTodoItems: {
       get() {

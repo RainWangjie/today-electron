@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import i18n from './i18n'
+
 import Notification from './components/Notification'
 import Message from './components/Message'
 
@@ -29,5 +31,6 @@ new Vue({
   components: { App },
   router,
   store,
+  i18n,
   template: '<App/>'
 }).$mount('#app')

@@ -1,27 +1,44 @@
 <template>
   <div class="list-item-view">
-    <context-menu ref="contextMenu" @select="handleContextMenuSelect">
+    <context-menu ref="contextMenu"
+                  @select="handleContextMenuSelect">
     </context-menu>
     <user-info></user-info>
     <ul class="list-wrapper">
-      <special-list-item v-for="item in specialListItems" :key="item" :title="item" @select-special-list-item="handleSelectSpecialListItem">
+      <special-list-item v-for="item in specialListItems"
+                         :key="item"
+                         :title="item"
+                         @select-special-list-item="handleSelectSpecialListItem">
       </special-list-item>
       <draggable v-model="draggableListItems">
         <transition-group name="move">
-          <list-item class="list-item" ref="listItems" v-for="(listItem, index) in draggableListItems" :item="listItem" :key="listItem._id" @contextmenu="_openContextMenu" @select="handleSelectListItem">
-          </list-item>
+          <list-item class="list-item"
+                     ref="listItems"
+                     v-for="listItem in draggableListItems"
+                     :item="listItem"
+                     :key="listItem._id"
+                     @contextmenu="_openContextMenu"
+                     @select="handleSelectListItem" />
         </transition-group>
       </draggable>
     </ul>
     <div class="add-item-wrapper">
-      <add-item @add="_openAddListDialog"></add-item>
+      <add-item @add="_openAddListDialog" />
     </div>
-    <dialog-box ref="addDialog" confirmText="Add" placeholder="List Name" title="Add List" @confirm="handleAddListItem">
-    </dialog-box>
-    <dialog-box ref="renameDialog" confirmText="Rename" placeholder="List Name" title="Rename List" @confirm="handleRenameListItem">
-    </dialog-box>
-    <confirm-box ref="deleteDialog" text="Are you sure to delete this list? All todo in this list would be deleted as well." title="Delete List" @confirm="handleDeleteListItem">
-    </confirm-box>
+    <dialog-box ref="addDialog"
+                :confirmText="$t('message.addConfirm')"
+                :placeholder="$t('message.addPlaceholder')"
+                :title="$t('message.addTitle')"
+                @confirm="handleAddListItem" />
+    <dialog-box ref="renameDialog"
+                :confirmText="$t('message.renameConfirm')"
+                :placeholder="$t('message.renamePlaceholder')"
+                :title="$t('message.renameTitle')"
+                @confirm="handleRenameListItem" />
+    <confirm-box ref="deleteDialog"
+                 :text="$t('message.deleteText')"
+                 :title="$t('message.deleteTitle')"
+                 @confirm="handleDeleteListItem" />
   </div>
 </template>
 
@@ -41,8 +58,40 @@ import UserInfo from '../components/UserInfo'
 
 const specialListItems = ['Today', 'To-Do']
 
+const i18n = {
+  messages: {
+    en: {
+      message: {
+        addConfirm: 'Add',
+        addTitle: 'Add List',
+        addPlaceholder: 'List Name',
+        renameConfirm: 'Rename',
+        renameTitle: 'Rename List',
+        renamePlaceholder: 'List Name',
+        deleteText:
+          'Are you sure to delete this list? All todo in this list would be deleted as well.',
+        deleteTitle: 'Delete List'
+      }
+    },
+    zh: {
+      message: {
+        addConfirm: '添加',
+        addTitle: '添加列表',
+        addPlaceholder: '列表名',
+        renameConfirm: '重命名',
+        renameTitle: '重命名列表',
+        renamePlaceholder: '列表名',
+        deleteText:
+          '你真的要删除这个列表吗？该列表下的所有待办事项都会被删除。',
+        deleteTitle: '删除列表'
+      }
+    }
+  }
+}
+
 export default {
   name: 'list-item-view',
+  i18n,
   components: {
     Draggable,
     AddItem,
@@ -70,10 +119,7 @@ export default {
     ...mapGetters(['currentListItem', 'listItems'])
   },
   created() {
-    // To-Do is the default list.
-
     this.specialListItems = specialListItems
-
     ipcRenderer.on('create-new-list', event => {
       this._openAddListDialog()
     })

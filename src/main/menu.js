@@ -1,18 +1,20 @@
 import { app, Menu } from 'electron'
+import i18n from './i18n'
 
+const $t = i18n.$t
 const template = [
   {
-    label: 'File',
+    label: $t('file'),
     submenu: [
       {
-        label: 'New Todo',
+        label: $t('newTodo'),
         accelerator: 'CommandOrControl+N',
         click: (item, window, event) => {
           window.webContents.send('create-new-todo')
         }
       },
       {
-        label: 'New List',
+        label: $t('newList'),
         accelerator: 'CommandOrControl+Shift+N',
         click: (item, window, event) => {
           window.webContents.send('create-new-list')
@@ -21,61 +23,51 @@ const template = [
     ]
   },
   {
-    label: 'Edit',
+    label: $t('edit'),
     submenu: [
-      { role: 'undo' },
-      { role: 'redo' },
+      { role: 'undo', label: $t('undo') },
+      { role: 'redo', label: $t('redo') },
       { type: 'separator' },
-      { role: 'cut' },
-      { role: 'copy' },
-      { role: 'paste' },
-      { role: 'pasteandmatchstyle' },
-      { role: 'delete' },
-      { role: 'selectall' }
+      { role: 'cut', label: $t('cut') },
+      { role: 'copy', label: $t('copy') },
+      { role: 'paste', label: $t('paste') }
     ]
   },
   {
-    label: 'View',
+    label: $t('view'),
     submenu: [
       {
-        label: 'See ToDos',
+        label: $t('seeTodos'),
         accelerator: 'CommandOrControl+T',
         click: (item, window, event) => {
           window.webContents.send('go-to-main-view')
         }
       },
       {
-        label: 'Check Summaries',
+        label: $t('checkSummaries'),
         accelerator: 'CommandOrControl+S',
         click: (item, window, event) => {
           window.webContents.send('go-to-summary-view')
         }
-      },
-      { type: 'separator' },
-      { role: 'reload' },
-      { role: 'forcereload' },
-      { role: 'toggledevtools' },
-      { type: 'separator' },
-      { role: 'resetzoom' },
-      { role: 'zoomin' },
-      { role: 'zoomout' },
-      { type: 'separator' },
-      { role: 'togglefullscreen' }
+      }
+      // { type: 'separator' },
+      // { role: 'reload' },
+      // { role: 'forcereload' },
+      // { role: 'toggledevtools' },
+      // { type: 'separator' },
+      // { role: 'resetzoom' },
+      // { role: 'zoomin' },
+      // { role: 'zoomout' },
+      // { type: 'separator' },
+      // { role: 'togglefullscreen' }
     ]
   },
   {
     role: 'window',
-    submenu: [{ role: 'minimize' }, { role: 'close' }]
-  },
-  {
-    role: 'help',
+    label: $t('window'),
     submenu: [
-      {
-        label: 'Learn More',
-        click () {
-          require('electron').shell.openExternal('https://electron.atom.io')
-        }
-      }
+      { role: 'minimize', label: $t('minimize') },
+      { role: 'close', label: $t('close') }
     ]
   }
 ]
@@ -85,15 +77,13 @@ if (process.platform === 'win32') {
   submenu.push({
     type: 'separator'
   })
-  submenu.push(
-    {
-      label: 'Settings',
-      accelerator: 'CommandOrControl+,',
-      click: (item, window, event) => {
-        window.webContents.send('go-to-settings-view')
-      }
+  submenu.push({
+    label: $t('settings'),
+    accelerator: 'CommandOrControl+,',
+    click: (item, window, event) => {
+      window.webContents.send('go-to-settings-view')
     }
-  )
+  })
 }
 
 if (process.platform === 'darwin') {
@@ -139,7 +129,4 @@ if (process.platform === 'darwin') {
   ]
 }
 
-app.on('ready', () => {
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
-})
+export default Menu.buildFromTemplate(template)

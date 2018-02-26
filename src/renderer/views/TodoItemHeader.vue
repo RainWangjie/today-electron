@@ -1,50 +1,39 @@
 <template>
   <div class="item-header-component">
     <div class="background-image-wrapper">
-      <img class="background-image"
-           :src="backgroundImage">
+      <img class="background-image" :src="backgroundImage">
     </div>
     <div class="current-list-item">
       <h1 class="title">
         {{ title }}
       </h1>
-      <p class="today"
-         v-if="showDate">
+      <p class="today" v-if="showDate">
         {{ formattedToday }}
       </p>
     </div>
-    <div class="sort-mode-wrapper"
-         @click="_openSortModeSelector">
+    <div class="sort-mode-wrapper" @click="_openSortModeSelector">
       <span class="displayer">
-        Sort
+        {{ $t('message.sort') }}
         <i class="fa fa-sort"></i>
       </span>
       <div class="dropdown-wrapper">
-        <dropdown ref="sortModeDropdown"
-                  transition-type="topright">
+        <dropdown ref="sortModeDropdown" transition-type="topright">
           <ul class="mode-items">
-            <li class="mode-item"
-                :class="{'current': sortMode === mode.mode}"
-                v-for="mode in sortModes"
-                :key="mode.mode"
-                @click="handleSortModeChange(mode.mode)">
-              {{ mode.desc }}
+            <li class="mode-item" :class="{'current': sortMode === mode.mode}" v-for="mode in sortModes" :key="mode.mode" @click="handleSortModeChange(mode.mode)">
+              {{ $t(`message.mode_${mode.mode}`) }}
             </li>
           </ul>
         </dropdown>
       </div>
     </div>
     <transition name="fade">
-      <div class="suggest-wrapper"
-           @click="_openSuggestionDialog"
-           v-if="currentSpecialListItemTitle && currentSpecialListItemTitle === 'Today'">
+      <div class="suggest-wrapper" @click="_openSuggestionDialog" v-if="currentSpecialListItemTitle && currentSpecialListItemTitle === 'Today'">
         <div class="btn-wrapper">
           <i class="fa fa-lightbulb-o"></i>
-          Suggest
+          {{ $t('message.suggestion') }}
         </div>
         <div class="dropdown-wrapper">
-          <dropdown ref="suggestionDropdown"
-                    transition-type="topright">
+          <dropdown ref="suggestionDropdown" transition-type="topright">
             <suggestion-view ref="suggestion" />
           </dropdown>
         </div>
@@ -54,72 +43,98 @@
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
-  import SuggestionView from './SuggestionView'
-  import Dropdown from '../components/Dropdown'
-  import { getFormattedDate } from '../utils/datetime'
+import SuggestionView from './SuggestionView'
+import Dropdown from '../components/Dropdown'
+import { getFormattedDate } from '../utils/datetime'
 
-  const sortModes = [
-    { mode: 'none', desc: 'Default' },
-    { mode: 'plan', desc: 'Plan Datetime' },
-    { mode: 'due', desc: 'Due Datetime' },
-    { mode: 'complete', desc: 'Complete Status' }
-  ]
+const sortModes = [
+  { mode: 'none' },
+  { mode: 'plan' },
+  { mode: 'due' },
+  { mode: 'complete' }
+]
 
-  export default {
-    name: 'TodoHeader',
-    components: { Dropdown, SuggestionView },
-    data () {
-      return {
-        sortModes
+const i18n = {
+  messages: {
+    en: {
+      message: {
+        sort: 'Sort',
+        suggestion: 'Suggestion',
+        mode_none: 'Default',
+        mode_plan: 'Plan Datetime',
+        mode_due: 'Due Datetime',
+        mode_complete: 'Complete Status'
       }
     },
-    computed: {
-      showDate () {
-        return this.currentSpecialListItemTitle === 'Today'
-      },
-      title () {
-        let title = this.currentSpecialListItemTitle
-        if (!title) {
-          title = this.currentListItem.title
-        }
-        return title
-      },
-      formattedToday () {
-        return getFormattedDate(this.today)
-      },
-      backgroundImage () {
-        // if (this.currentSpecialListItemTitle === 'Today') {
-        //   return '/static/images/unsplash/today.jpg'
-        // }
-        // return '/static/images/unsplash/header-todo.jpg'
-        return '/static/images/unsplash/today.jpg'
-      },
-      ...mapGetters([
-        'currentListItem',
-        'currentSpecialListItemTitle',
-        'sortMode',
-        'today'
-      ])
-    },
-    methods: {
-      _openSuggestionDialog () {
-        this.$refs.suggestionDropdown.show()
-        this.$refs.suggestion.refresh()
-      },
-      _openSortModeSelector () {
-        this.$refs.sortModeDropdown.show()
-      },
-      handleSortModeChange (mode) {
-        this.setSortMode(mode)
-        this.$refs.sortModeDropdown.hide()
-      },
-      ...mapMutations({
-        setSortMode: 'SET_SORT_MODE'
-      })
+    zh: {
+      message: {
+        sort: '排序',
+        suggestion: '建议',
+        mode_none: '默认',
+        mode_plan: '计划时间',
+        mode_due: '截止时间',
+        mode_complete: '完成状态'
+      }
     }
   }
+}
+
+export default {
+  name: 'TodoHeader',
+  components: { Dropdown, SuggestionView },
+  i18n,
+  data() {
+    return {
+      sortModes
+    }
+  },
+  computed: {
+    showDate() {
+      return this.currentSpecialListItemTitle === 'Today'
+    },
+    title() {
+      let title = this.currentSpecialListItemTitle
+      if (!title) {
+        title = this.currentListItem.title
+      }
+      return title
+    },
+    formattedToday() {
+      return getFormattedDate(this.today)
+    },
+    backgroundImage() {
+      // if (this.currentSpecialListItemTitle === 'Today') {
+      //   return '/static/images/unsplash/today.jpg'
+      // }
+      // return '/static/images/unsplash/header-todo.jpg'
+      return '/static/images/unsplash/today.jpg'
+    },
+    ...mapGetters([
+      'currentListItem',
+      'currentSpecialListItemTitle',
+      'sortMode',
+      'today'
+    ])
+  },
+  methods: {
+    _openSuggestionDialog() {
+      this.$refs.suggestionDropdown.show()
+      this.$refs.suggestion.refresh()
+    },
+    _openSortModeSelector() {
+      this.$refs.sortModeDropdown.show()
+    },
+    handleSortModeChange(mode) {
+      this.setSortMode(mode)
+      this.$refs.sortModeDropdown.hide()
+    },
+    ...mapMutations({
+      setSortMode: 'SET_SORT_MODE'
+    })
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

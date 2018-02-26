@@ -1,55 +1,44 @@
 import path from 'path'
-import { Tray, Menu, ipcMain, app } from 'electron'
-
+import { Tray, Menu, app } from 'electron'
 import { createWindow } from './index'
+import i18n from './i18n'
 
+const $t = i18n.$t
 let tray = null
 
-app.on('ready', event => {
-  createTray()
-})
-
-app.on('window-all-closed', event => {
-  if (process.platform !== 'darwin' && tray === null) {
-    app.quit()
-  }
-  if (process.platform === 'darwin') {
-    app.dock.hide()
-  }
-})
-
-ipcMain.on('put-in-tray', event => {
-  createTray()
-})
-
-ipcMain.on('remove-tray', event => {
-  destroyTray()
-})
-
-export const createTray = function () {
+export const createTray = function() {
   if (tray) return
-  const iconName = `assets/images/${process.platform === 'win32' ? 'windows-icon.png' : 'iconTemplate.png'}`
+
+  const iconName = `assets/images/${
+    process.platform === 'win32' ? 'windows-icon-big.png' : 'iconTemplate.png'
+  }`
   const iconPath = path.join(__dirname, iconName)
-  tray = new Tray(iconPath)
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Open Window',
-      click () {
+      label: $t('openWindow'),
+      click() {
         createWindow()
         if (process.platform === 'darwin') app.dock.show()
       }
     },
     {
-      label: 'Quit',
-      click () {
+      label: $t('quit'),
+      click() {
         app.quit()
       }
     }
   ])
+
+  tray = new Tray(iconPath)
   tray.setContextMenu(contextMenu)
+  tray.setToolTip('Today')
 }
 
-export const destroyTray = function () {
+export const destroyTray = function() {
   if (tray) tray.destroy()
   tray = null
+}
+
+export const trayExists = function() {
+  return !!tray
 }

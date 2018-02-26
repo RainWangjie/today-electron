@@ -6,6 +6,7 @@ const TODO_ITEMS = 'todoItems'
 const PREFERENCES = 'preferences'
 const DAILY_SUMMARIES = 'dailySummaries'
 const LAST_SUMMARY_DATE = 'lastSummaryDate'
+const LOCALE = 'locale'
 
 export function loadListItems() {
   return store.get(LIST_ITEMS, [])
@@ -37,4 +38,11 @@ export function loadLastSummaryDate() {
 export function storeDailySummaries(dailySummaries, lastDate) {
   store.set(DAILY_SUMMARIES, dailySummaries)
   store.set(LAST_SUMMARY_DATE, lastDate)
+}
+
+export const setLocale = function(locale) {
+  store.set(LOCALE, locale)
+}
+export const getLocale = function() {
+  return store.get(LOCALE, 'zh')
 }

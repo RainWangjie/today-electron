@@ -40,7 +40,6 @@ export default {
 .dropdown-component {
   border-radius: 4px;
   min-width: 100px;
-  min-height: 50px;
   padding: 12px;
   background: white;
   standard-shadow();
