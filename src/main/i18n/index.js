@@ -1,16 +1,17 @@
-import path from 'path'
-import fs from 'fs'
-
 import { getLocale } from '../store'
+
+const files = require.context('.', false, /\.js$/)
+const dicts = {}
+
+files.keys().forEach(key => {
+  dicts[key.replace(/(\.\/|\.js)/g, '')] = files(key).default
+})
 
 let dictionary
 
 function Translator() {
   const locale = getLocale()
-  const exists = fs.existsSync(path.join(__dirname, locale + '.json'))
-  const destiFile = path.join(__dirname, (exists ? locale : 'en') + '.json')
-
-  dictionary = JSON.parse(fs.readFileSync(destiFile, 'utf8'))
+  dictionary = dicts[locale]
 }
 
 /**

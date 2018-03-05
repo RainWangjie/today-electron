@@ -11,3 +11,4 @@ thumbs.db
 .idea/
 .vscode/
 TODO.md
+yarn-error.log

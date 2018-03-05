@@ -1,0 +1,20 @@
+export default {
+  file: '文件',
+  newTodo: '新待办事项',
+  newList: '新列表',
+  settings: '设置',
+  edit: '编辑',
+  undo: '重做',
+  redo: '撤销',
+  cut: '剪切',
+  copy: '复制',
+  paste: '粘贴',
+  view: '视图',
+  seeTodos: '浏览待办事项',
+  checkSummaries: '查看每日总结',
+  window: '窗口',
+  minimize: '最小化',
+  close: '关闭',
+  openWindow: '打开窗口',
+  quit: '退出'
+}
