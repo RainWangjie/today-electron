@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions'
 import ButtonBase from '../renderer/components/ButtonBase'
 
 storiesOf('Button', module)
-  .add('of Different Size', () => ({
+  .add('Different Sizes', () => ({
     components: { ButtonBase },
     template: `<div>
 <button-base text="Big" size="big" @click="handleButtonClicked"></button-base>
@@ -17,7 +17,7 @@ storiesOf('Button', module)
       }
     }
   }))
-  .add('of Differenct Color', () => ({
+  .add('Differenct Colors', () => ({
     components: { ButtonBase },
     template: `<div>
 <button-base text="Primary" type="primary"></button-base>

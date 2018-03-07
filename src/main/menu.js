@@ -73,17 +73,22 @@ const template = [
 ]
 
 if (process.platform === 'win32') {
-  const submenu = template[0].submenu
-  submenu.push({
-    type: 'separator'
-  })
-  submenu.push({
-    label: $t('settings'),
-    accelerator: 'CommandOrControl+,',
-    click: (item, window, event) => {
-      window.webContents.send('go-to-settings-view')
+  template[0].submenu.push(
+    { type: 'separator' },
+    {
+      label: $t('settings'),
+      accelerator: 'CommandOrControl+,',
+      click: (item, window, event) => {
+        window.webContents.send('go-to-settings-view')
+      }
+    },
+    { type: 'separator' },
+    {
+      label: $t('quit'),
+      role: 'quit',
+      accelerator: 'Alt+F4'
     }
-  })
+  )
 }
 
 if (process.platform === 'darwin') {

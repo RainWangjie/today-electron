@@ -1,7 +1,6 @@
 import Store from 'electron-store'
 
 const store = new Store()
-
 const LOCALE = 'locale'
 
 export const setLocale = function(locale) {

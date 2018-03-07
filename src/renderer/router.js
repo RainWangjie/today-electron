@@ -7,38 +7,38 @@ export default new Router({
   routes: [
     {
       path: '/welcome',
-      component: require('../views/ConfigView').default
+      component: require('./views/ConfigView').default
     },
     {
       path: '/',
-      component: require('../views/LandingView').default
+      component: require('./views/LandingView').default
     },
     {
       path: '/main',
-      component: require('../views/MainView').default,
+      component: require('./views/MainView').default,
       children: [
         {
           path: '',
           name: 'main',
-          component: require('../views/BlankView').default
+          component: require('./views/BlankView').default
         },
         {
           path: ':listItemUUID',
-          component: require('../views/TodoItemView').default,
+          component: require('./views/TodoItemView').default,
           children: [
             {
               path: ':todoItemUUID',
-              component: require('../views/DetailView').default
+              component: require('./views/DetailView').default
             }
           ]
         },
         {
           path: 'today',
-          component: require('../views/TodoItemView').default,
+          component: require('./views/TodoItemView').default,
           children: [
             {
               path: ':todoItemUUID',
-              component: require('../views/DetailView').default
+              component: require('./views/DetailView').default
             }
           ]
         }
@@ -46,11 +46,11 @@ export default new Router({
     },
     {
       path: '/summary',
-      component: require('../views/SummaryView').default
+      component: require('./views/SummaryView').default
     },
     {
       path: '/settings',
-      component: require('../views/SettingsView').default
+      component: require('./views/SettingsView').default
     }
   ]
 })

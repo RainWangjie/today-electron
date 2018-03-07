@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import I18N from 'vue-i18n'
-import { getLocale } from '../store/cache'
+import { getLocale } from './store/cache'
 
 Vue.use(I18N)
 

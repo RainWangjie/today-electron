@@ -45,6 +45,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import { ipcRenderer } from 'electron'
+import * as types from '../../shared/eventTypes'
 import InputBox from '../components/InputBox'
 import Divider from '../components/Divider'
 import Switcher from '../components/Switcher'
@@ -104,7 +105,7 @@ export default {
     ...mapGetters(['currentListItem', 'currentSpecialListItemTitle'])
   },
   created() {
-    ipcRenderer.on('avatar-generated', (event, base64code) => {
+    ipcRenderer.on(types.AVATAR_RESPONSE, (event, base64code) => {
       this.setAvatar(base64code)
       this.$message({
         desc: 'Avatar changed!',
@@ -158,7 +159,7 @@ export default {
       this.setOpenAni(mode)
     },
     handleChangeAvatar() {
-      ipcRenderer.send('open-avatar-dialog')
+      ipcRenderer.send(types.AVATAR_REQUIRE)
     },
     handleClearDataButtonClick() {
       this.$refs.confirmBox.show()

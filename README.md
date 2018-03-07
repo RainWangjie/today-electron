@@ -8,16 +8,42 @@ A glance of what you can do with Today:
 
 * Add a ToDo, set due date and plan date, and write a description.
 * Get suggestions from Today for today's jobs.
-* See if you complete your planned ToDos in summary view.
+* See if you complete your planned ToDos in Summary View.
 
-![](./images/2.jpeg)
-![](./images/3.jpeg)
-![](./images/4.jpeg)
-![](./images/6.jpeg)
+![](./showcase/2.jpeg)
+![](./showcase/3.jpeg)
+![](./showcase/4.jpeg)
+![](./showcase/6.jpeg)
 
-## How to use it
+Today now supports English and Chinese.
 
-This project is still a work in progress so I don't have a release for you. If you're interested, you can clone this repo, install dependencies and run `npm run dev`.
+## How to use
+
+This project is still a work in progress so I don't have a release for you. If you're interested, you have to clone this repo and run the following scripts:
+
+* `yarn dev` to run in development mode.
+* `yarn storybook` to develop components.
+
+## Components
+
+I have written some components for this project, include:
+
+* Calendar
+* ContextMenu
+* DatePicker
+* Message
+* Notfication
+* Input
+* Button
+* ConfirmDialog
+* InputDialog
+* Dropdown
+* Modal
+* Segment
+* Switch
+* Select
+
+They are in `src/renderer/components`.
 
 ---
 
