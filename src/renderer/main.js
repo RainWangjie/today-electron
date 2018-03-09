@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import i18n from './i18n'
 
-import Notification from './components/Notification'
+import Noti from './components/Notification'
 import Message from './components/Message'
 import Modal from './components/Modal'
 import ContextMenu from './components/ContextMenu'
@@ -18,7 +18,7 @@ import { saveDailySummaries } from './store/modules/daily_summary'
 Vue.config.productionTip = false
 Vue.filter('date', dateFormatter)
 
-Vue.prototype.$noti = Notification
+Vue.prototype.$noti = Noti
 Vue.prototype.$message = Message
 Vue.prototype.$modal = Modal
 Vue.prototype.$contextMenu = ContextMenu

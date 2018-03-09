@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="context-menu" ref="container" v-show="visible" v-clickoutside="handleClickOutside">
+    <div class="context-menu" :style="positionStyle" v-show="visible" v-clickoutside="handleClickOutside">
       <ul>
         <context-menu-item v-for="command in commands" :key="command.title" :command="command" @click="handleClick" />
       </ul>
@@ -12,7 +12,6 @@
 import ContextMenuItem from './ContextMenuItem'
 import Clickoutside from '../../utils/directives/clickoutside'
 import { indeComponentMixin } from '../../utils/mixins/inde-component'
-
 export default {
   name: 'ContextMenu',
   mixins: [indeComponentMixin],
@@ -36,9 +35,27 @@ export default {
     ],
     pos: null
   }),
+  computed: {
+    positionStyle() {
+      return `top: ${this.pos.y}px; left: ${this.pos.x}px;`
+    }
+  },
   mounted() {
-    this.$refs.container.style.left = `${this.pos.x}px`
-    this.$refs.container.style.top = `${this.pos.y}px`
+    // In case context menu is too close to window's edge.
+    // Though it works, setTimeount is not elegant. But I don't know how to determine the
+    // element's width and height in another way (and with a smooth transition) buz the rendering
+    // process underhook is unknown.
+    setTimeout(() => {
+      const { clientWidth, clientHeight } = this.$el
+      const { innerWidth, innerHeight } = window
+
+      if (innerWidth - this.pos.x < clientWidth) {
+        this.pos.x = this.pos.x - clientWidth
+      }
+      if (innerHeight - this.pos.y < clientHeight) {
+        this.pos.y = this.pos.y - clientHeight
+      }
+    })
   },
   methods: {
     changePosition() {
