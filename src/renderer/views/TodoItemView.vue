@@ -5,37 +5,19 @@
         <todo-item-header />
       </div>
       <transition name="fade">
-        <div class="item-wrapper"
-             key="items"
-             v-if="currentTodoItems.length">
+        <div class="item-wrapper" key="items" v-if="currentTodoItems.length">
           <draggable v-model="draggableTodoItems">
-            <transition-group name="move"
-                              tag="ul">
-              <todo-item class="todo-item"
-                         v-for="item in draggableTodoItems"
-                         :key="item._id"
-                         :item="item"
-                         @select="handleTodoItemSelect"
-                         @contextmenu="_showContextMenu" />
+            <transition-group name="move" tag="ul">
+              <todo-item class="todo-item" v-for="item in draggableTodoItems" :key="item._id" :item="item" @select="handleTodoItemSelect" @contextmenu="_handleContextMenu" />
             </transition-group>
           </draggable>
         </div>
-        <div class="blank-view-wrapper"
-             key="blank"
-             v-else>
+        <!-- Show a blank view if there's no todos in this list. -->
+        <div class="blank-view-wrapper" key="blank" v-else>
           <blank-view :info="$t('message.blankInfo')" />
         </div>
       </transition>
-      <add-item-btn key="add"
-                    @add="_openAddTodoDialog" />
-      <dialog-box ref="dialog"
-                  :title="$t('message.addTodoTitle')"
-                  :placeholder="$t('message.addTodoPlaceholder')"
-                  :confirmText="$t('message.addTodoConfirm')"
-                  @confirm="_addTodoItem" />
-      <context-menu ref="contextMenu"
-                    :commands="commands"
-                    @select="handleContextMenuSelect" />
+      <add-item-btn key="add" @add="_handleAddTodoItem" />
       <router-view></router-view>
     </div>
   </transition>
@@ -50,20 +32,18 @@ import BlankView from './BlankView'
 import TodoItem from '../components/TodoItem'
 import TodoItemHeader from './TodoItemHeader'
 import AddItemBtn from '../components/AddItemBtn'
-import ContextMenu from '../components/ContextMenu/index'
-import DialogBox from '../components/DialogBox'
 
 const commands = [
   {
     title: 'Do It Today!',
     icon: 'fa-sun-o',
-    event: 'today',
+    hook: 'today',
     type: 'important'
   },
   {
     title: 'Delete',
     icon: 'fa-trash',
-    event: 'delete',
+    hook: 'delete',
     type: 'danger'
   }
 ]
@@ -123,46 +103,41 @@ export default {
     ...mapGetters(['currentListItem', 'currentTodoItems', 'sortMode'])
   },
   created() {
-    this.commands = commands
-
     ipcRenderer.on('create-new-todo', event => {
-      this._openAddTodoDialog()
+      this._handleAddTodoItem()
     })
   },
   methods: {
-    _openAddTodoDialog() {
-      this.$refs.dialog.show()
+    _handleAddTodoItem() {
+      this.$modal({
+        type: 'dialog',
+        callback: title => {
+          this.addTodoItem(title)
+        }
+      })
     },
-    _addTodoItem(todoTitle) {
-      this.addTodoItem(todoTitle)
-    },
-    handleContextMenuSelect(eventName) {
-      if (eventName === 'delete') {
-        this._deleteContextTodoItem()
-      }
-      if (eventName === 'today') {
-        this._setContextTodoItemToday()
-      }
+    _handleContextMenu(todoItem, { x, y }) {
+      this.$contextMenu({
+        commands,
+        pos: { x, y },
+        callback: hook => {
+          if (hook === 'today') {
+            this.setPlanDatetime({
+              item: todoItem,
+              date: new Date()
+            })
+          }
+          if (hook === 'delete') {
+            this.deleteTodoItem(todoItem)
+          }
+        }
+      })
     },
     handleTodoItemSelect(todoItem) {
       this.selectDetailedTodoItem(todoItem)
       this.$router.push({
         path: `/main/${this.currentListItem._id}/${todoItem._id}`
       })
-    },
-    _showContextMenu(todoItem, pos) {
-      this.contextMenuItem = todoItem
-      this.$refs.contextMenu.show(pos)
-    },
-    _setContextTodoItemToday() {
-      this.setPlanDatetime({
-        item: this.contextMenuItem,
-        date: new Date()
-      })
-    },
-    _deleteContextTodoItem() {
-      this.deleteTodoItem(this.contextMenuItem)
-      this.contextMenuItem = null
     },
     ...mapMutations({
       setPlanDatetime: 'SET_PLAN_DATETIME',
@@ -180,9 +155,7 @@ export default {
     BlankView,
     TodoItemHeader,
     TodoItem,
-    AddItemBtn,
-    ContextMenu,
-    DialogBox
+    AddItemBtn
   }
 }
 </script>

@@ -28,7 +28,6 @@
           </div>
         </div>
       </div>
-      <confirm-box ref="deleteDialog" text="Are you sure to delete this ToDo?" title="Delete ToDo" @confirm="handleDeleteTodoItem" />
     </div>
   </transition>
 </template>
@@ -37,7 +36,6 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 import DatePicker from '../components/DatePicker/index'
-import ConfirmBox from '../components/ConfirmBox'
 import Indicator from '../components/Indicator'
 import InputBox from '../components/InputBox'
 
@@ -46,7 +44,6 @@ import { clearHours, getToday } from '../utils/datetime.js'
 export default {
   name: 'DetailView',
   components: {
-    ConfirmBox,
     DatePicker,
     Indicator,
     InputBox
@@ -131,11 +128,13 @@ export default {
       })
     },
     handleDeleteClick() {
-      this.$refs.deleteDialog.show()
-    },
-    handleDeleteTodoItem() {
-      this.deleteTodoItem(this.detailedTodoItem)
-      this._quitDetail()
+      this.$modal({
+        type: 'confirm',
+        callback: () => {
+          this.deleteTodoItem(this.detailedTodoItem)
+          this._quitDetail()
+        }
+      })
     },
     handleDueDateChanged(date) {
       const item = this.detailedTodoItem

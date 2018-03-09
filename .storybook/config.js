@@ -1,7 +1,6 @@
 import { configure } from '@storybook/vue'
 
 import 'font-awesome/css/font-awesome.css'
-
 import '../src/renderer/assets/style/index.styl'
 
 // automatically import all files ending in *.stories.js

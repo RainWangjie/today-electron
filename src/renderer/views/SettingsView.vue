@@ -50,7 +50,6 @@ import InputBox from '../components/InputBox'
 import Divider from '../components/Divider'
 import Switcher from '../components/Switcher'
 import ButtonBase from '../components/ButtonBase'
-import ConfirmBox from '../components/ConfirmBox'
 import WzSelect from '../components/Select'
 import { extractPreferencesMixin } from '../utils/mixins/pref'
 
@@ -89,7 +88,6 @@ export default {
     Divider,
     Switcher,
     ButtonBase,
-    ConfirmBox,
     WzSelect
   },
   data() {

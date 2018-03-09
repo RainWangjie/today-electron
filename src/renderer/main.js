@@ -6,6 +6,8 @@ import i18n from './i18n'
 
 import Notification from './components/Notification'
 import Message from './components/Message'
+import Modal from './components/Modal'
+import ContextMenu from './components/ContextMenu'
 
 import { dateFormatter } from './utils/filters/dateformatter'
 import { savePreferences } from './store/modules/preference'
@@ -15,8 +17,11 @@ import { saveDailySummaries } from './store/modules/daily_summary'
 
 Vue.config.productionTip = false
 Vue.filter('date', dateFormatter)
+
 Vue.prototype.$noti = Notification
 Vue.prototype.$message = Message
+Vue.prototype.$modal = Modal
+Vue.prototype.$contextMenu = ContextMenu
 
 // Save everything before quit application.
 window.onbeforeunload = e => {

@@ -1,7 +1,7 @@
 import path from 'path'
 import { Tray, Menu, app, nativeImage } from 'electron'
-import { createWindow } from '../window'
-import i18n from '../i18n'
+import { createWindow } from './window'
+import i18n from './i18n'
 
 const $t = i18n.$t
 const trayMenu = [

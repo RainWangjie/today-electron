@@ -1,7 +1,5 @@
 <template>
-  <li class="todo-item-co border-1px horizontal"
-      :class="{'current': detailedTodoItem._id === item._id}"
-      @click="handleClick" @contextmenu.prevent="handleContextMenu">
+  <li class="todo-item-co border-1px horizontal" :class="{'current': detailedTodoItem._id === item._id}" @click="handleClick" @contextmenu="handleContextMenu">
     <div class="indicator-wrapper" @click.stop="handleToggle">
       <indicator :flag="item.completeFlag"></indicator>
     </div>
@@ -92,79 +90,79 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../assets/style/mixins.styl';
-  @import '../assets/style/variables.styl';
+@import '../assets/style/mixins.styl';
+@import '../assets/style/variables.styl';
 
-  .todo-item-co {
-    display: flex;
-    padding: 0 20px;
-    height: 44px;
-    box-sizing: border-box;
-    bottom-border($light-border-color);
-    background: white;
-    align-items: center;
-    transition: background all 0.2s;
+.todo-item-co {
+  display: flex;
+  padding: 0 20px;
+  height: 44px;
+  box-sizing: border-box;
+  bottom-border($light-border-color);
+  background: white;
+  align-items: center;
+  transition: background all 0.2s;
 
-    &.move-enter-active, &.move-leave-active {
-      transition: all 0.2s;
+  &.move-enter-active, &.move-leave-active {
+    transition: all 0.2s;
+  }
+
+  &.move-enter-active {
+    transition-delay: 0.2s;
+  }
+
+  &.move-enter, &.move-leave-to {
+    height: 0;
+    opacity: 0;
+  }
+
+  &.current {
+    background: $background-color-light-grey;
+  }
+
+  .indicator-wrapper {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    margin-right: 16px;
+  }
+
+  .content {
+    flex: 1;
+
+    .title {
+      line-height: 14px;
+      font-size: 14px;
+
+      &.completed {
+        text-decoration: line-through;
+        color: $text-color-dark-grey;
+      }
     }
 
-    &.move-enter-active {
-      transition-delay: 0.2s;
-    }
+    .info {
+      color: $text-color-dark-grey;
 
-    &.move-enter, &.move-leave-to {
-      height: 0;
-      opacity: 0;
-    }
+      .info-item {
+        display: inline-block;
+        padding-top: 2px;
+        margin-right: 10px;
+        font-size: $text-small;
 
-    &.current {
-      background: $background-color-light-grey;
-    }
+        &.fade-enter, &.fade-leave-to {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
 
-    .indicator-wrapper {
-      flex: 0 0 22px;
-      width: 22px;
-      height: 22px;
-      margin-right: 16px;
-    }
-
-    .content {
-      flex: 1;
-
-      .title {
-        line-height: 14px;
-        font-size: 14px;
-
-        &.completed {
-          text-decoration: line-through;
-          color: $text-color-dark-grey;
+        &.fade-enter-active, &.fade-leave-active {
+          transition: all 0.2s;
         }
       }
 
-      .info {
-        color: $text-color-dark-grey;
-
-        .info-item {
-          display: inline-block;
-          padding-top: 2px;
-          margin-right: 10px;
-          font-size: $text-small;
-
-          &.fade-enter, &.fade-leave-to {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
-
-          &.fade-enter-active, &.fade-leave-active {
-            transition: all 0.2s;
-          }
-        }
-
-        .fa {
-          margin-right: 2px;
-        }
+      .fa {
+        margin-right: 2px;
       }
     }
   }
+}
 </style>

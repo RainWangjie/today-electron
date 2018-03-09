@@ -1,7 +1,3 @@
-/**
- * Very similar to Notification.
- */
-
 import Vue from 'vue'
 import MessageTemplate from './MessageItem'
 
@@ -11,12 +7,12 @@ let newMessage
 let messages = []
 let seed = 1
 
-const Message = function (options) {
+const Message = function(options) {
   options = options || {}
   const id = 'message_' + seed++
   let offset = options.offset || 8
 
-  options.onClose = function () {
+  options.onClose = function() {
     Message.close(id)
   }
 
@@ -30,7 +26,7 @@ const Message = function (options) {
   newMessage.vm.visible = true
   newMessage.dom = newMessage.vm.$el
 
-  messages.forEach((item) => {
+  messages.forEach(item => {
     offset += item.$el.clientHeight + 8
   })
   newMessage.verticalOffset = offset
@@ -38,7 +34,7 @@ const Message = function (options) {
   return newMessage.vm
 }
 
-Message.close = function (id) {
+Message.close = function(id) {
   let index = -1
   const len = messages.length
   const messa = messages.filter((message, i) => {
