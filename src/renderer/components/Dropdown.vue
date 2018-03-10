@@ -44,6 +44,7 @@ export default {
   background: white;
   standard-shadow();
   transition: 0.2s all;
+  z-index: 200;
 
   &.topdown-enter, &.topdown-leave-to {
     opacity: 0;

@@ -27,7 +27,7 @@
               <div class="option border-1px horizontal">
                 <span class="desc">语言</span>
                 <div class="select-wrapper">
-                  <wz-select :options="languageOptions"></wz-select>
+                  <wz-select :options="languageOptions" :index="languageIndex" @select="handleLanguageSelect"></wz-select>
                 </div>
               </div>
             </div>
@@ -45,6 +45,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import { ipcRenderer } from 'electron'
+
 import * as types from '../../shared/eventTypes'
 import InputBox from '../components/InputBox'
 import Divider from '../components/Divider'
@@ -52,11 +53,16 @@ import Switcher from '../components/Switcher'
 import ButtonBase from '../components/ButtonBase'
 import WzSelect from '../components/Select'
 import { extractPreferencesMixin } from '../utils/mixins/pref'
+import { getLocale, setLocale } from '../store/cache'
 
 const languageOptions = [
-  { title: 'English' },
   {
-    title: '中文'
+    title: 'English',
+    key: 'en'
+  },
+  {
+    title: '中文',
+    key: 'zh'
   }
 ]
 
@@ -66,14 +72,20 @@ const i18n = {
       message: {
         copyright: 'Copyright Wendell Hu 2017-18 All Rights Reserved',
         playSound: 'Play Sound',
-        animation: 'Show Open Animation'
+        animation: 'Show Open Animation',
+        usernameNotNone: 'Username cannot be none',
+        usernameChanged: 'Username is changed to {username}',
+        languageChagned: 'If would take effect the last time you open Today'
       }
     },
     zh: {
       message: {
         copyright: '版权所有 Wendell Hu 2017-18 保留所有权利',
         playSound: '播放声音',
-        animation: '启动展示题图'
+        animation: '启动展示题图',
+        usernameNotNone: '用户名不能为空',
+        usernameChanged: '用户名修改为 {username}',
+        languageChagned: '将会在你下一次启动 Today 的时候生效'
       }
     }
   }
@@ -93,7 +105,8 @@ export default {
   data() {
     return {
       innerUsername: this.username,
-      languageOptions
+      languageOptions,
+      languageIndex: -1
     }
   },
   computed: {
@@ -110,6 +123,9 @@ export default {
         type: 'info'
       })
     })
+
+    const local = getLocale()
+    this.languageIndex = local === 'en' ? 0 : 1
   },
   watch: {
     username: {
@@ -132,13 +148,13 @@ export default {
     handleUsernameEnter(username) {
       if (username === '') {
         this.$message({
-          desc: 'Username cannot not be none.',
+          desc: this.$i18n.t('message.usernameNotNone'),
           type: 'alert'
         })
         this.innerUsername = this.username
       } else if (username !== this.username) {
         this.$message({
-          desc: `Username changed to ${username}.`,
+          desc: this.$i18n.t('message.usernameChanged', { username }),
           type: 'info'
         })
         this.setUsername(username)
@@ -159,8 +175,13 @@ export default {
     handleChangeAvatar() {
       ipcRenderer.send(types.AVATAR_REQUIRE)
     },
-    handleClearDataButtonClick() {
-      this.$refs.confirmBox.show()
+    handleLanguageSelect(index) {
+      setLocale(languageOptions[index].key)
+      this.languageIndex = index
+      this.$message({
+        type: 'info',
+        desc: this.$i18n.t('message.languageChagned')
+      })
     },
     ...mapMutations({
       setUsername: 'SET_USERNAME',

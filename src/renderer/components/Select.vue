@@ -1,13 +1,15 @@
 <template>
-  <div class="select-component" @click="handleFocus">
-    <input-box :value="innerValue" :embedded="true" :editable="false" :border="false"></input-box>
+  <div class="select-component" @click="handleOpen">
+    {{ index > -1 ? visualValue : placeholder}}
+    <i class="fa fa-angle-down" />
     <dropdown class="dropdown" transition-type="topdown" ref="selectDropdown">
       <ul class="options">
-        <li class="option" v-for="option in options" :key="option.title" @click="handleOptionClick(option)">
+        <li class="option" v-for="(option, index) in options" :key="option.title" @click="handleOptionClick(index)">
           {{ option.title }}
         </li>
       </ul>
     </dropdown>
+    <i class="fa fa-dropdown" />
   </div>
 </template>
 
@@ -21,18 +23,27 @@ export default {
   props: {
     options: {
       type: Array
+    },
+    placeholder: {
+      type: String,
+      default: 'Placeholder'
+    },
+    index: {
+      type: Number,
+      default: -1
     }
   },
-  data: () => ({
-    innerValue: ''
-  }),
+  computed: {
+    visualValue() {
+      return this.options[this.index].title
+    }
+  },
   methods: {
-    handleFocus() {
+    handleOpen() {
       this.$refs.selectDropdown.show()
     },
-    handleOptionClick(option) {
-      this.innerValue = option.title
-      this.$emit('select', option.title)
+    handleOptionClick(index) {
+      this.$emit('select', index)
       this.$refs.selectDropdown.hide()
     }
   }
@@ -43,16 +54,23 @@ export default {
 @import '../assets/style/variables.styl';
 
 .select-component {
+  text-align: right;
+  height: 44px;
+  min-width: 120px;
+  line-height: 44px;
+
   .dropdown {
     position: absolute;
     right: 0;
-    top: 44px;
+    top: 40px;
     padding: 0;
     overflow: scroll;
   }
 
   .options {
     .option {
+      line-height: 22px;
+      text-align: left;
       padding: 8px;
       transition: background-color 0.2s linear;
 

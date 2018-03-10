@@ -3,7 +3,7 @@
 import { Menu, BrowserWindow } from 'electron'
 import menu from './menu'
 
-let mainWindow
+export let mainWindow
 
 const isDev = process.env.NODE_ENV === 'development'
 const winURL = isDev

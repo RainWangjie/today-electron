@@ -5,6 +5,7 @@ import { app } from 'electron'
 import './init'
 import { createWindow } from './window'
 import { createTray } from './tray'
+import './ipc'
 
 app.on('ready', () => {
   createWindow()

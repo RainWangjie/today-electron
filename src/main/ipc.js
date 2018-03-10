@@ -2,11 +2,14 @@ import { ipcMain, dialog } from 'electron'
 import { createTray, destroyTray } from './tray'
 import base64Img from 'base64-img'
 
+import { mainWindow } from './window'
 import * as types from '../shared/eventTypes'
 
 ipcMain.on(types.AVATAR_REQUIRE, event => {
+  console.log('sig')
   dialog.showOpenDialog(
     {
+      window: mainWindow,
       properties: ['openFile'],
       filters: [{ name: 'Images', extensions: ['jpg', 'png', 'gif', 'jpeg'] }]
     },
