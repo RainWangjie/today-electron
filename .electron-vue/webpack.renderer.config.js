@@ -18,7 +18,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
  * that provide pure *.vue files that need compiling
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
  */
-let whiteListedModules = ['vue']
+let whiteListedModules = ['vue', 'cron-parser', 'node-schedule']
 
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
@@ -26,6 +26,7 @@ let rendererConfig = {
     renderer: path.join(__dirname, '../src/renderer/main.js')
   },
   externals: [
+    { 'electron-store': 'electron-store' },
     ...Object.keys(dependencies || {}).filter(
       d => !whiteListedModules.includes(d)
     )

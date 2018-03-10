@@ -6,7 +6,7 @@
       </div>
     </transition>
     <!-- TODO: How can I include static resources instead of http service? -->
-    <audio ref="audio" src="/static/sounds/complete.m4a" />
+    <audio ref="audio" src="static/sounds/complete.m4a" />
   </div>
 </template>
 
@@ -36,60 +36,60 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../assets/style/variables.styl';
+@import '../assets/style/variables.styl';
 
-  @keyframes bounce {
-    0% {
-      transform: scale(0);
-    }
-
-    70% {
-      transform: scale(1.3);
-    }
-
-    100% {
-      transform: scale(1);
-    }
+@keyframes bounce {
+  0% {
+    transform: scale(0);
   }
 
-  @keyframes bounceback {
-    100% {
-      transform: scale(0);
-    }
-
-    30% {
-      transform: scale(1.3);
-    }
-
-    0% {
-      transform: scale(1);
-    }
+  70% {
+    transform: scale(1.3);
   }
 
-  .indicator-component {
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceback {
+  100% {
+    transform: scale(0);
+  }
+
+  30% {
+    transform: scale(1.3);
+  }
+
+  0% {
+    transform: scale(1);
+  }
+}
+
+.indicator-component {
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  background: $background-color-grey;
+
+  .indicator {
+    height: 100%;
+    width: 100%;
     border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    background: $background-color-grey;
+    background: $primary-color;
+    line-height: 24px;
+    text-align: center;
+    color: white;
 
-    .indicator {
-      height: 100%;
-      width: 100%;
-      border-radius: 50%;
-      background: $primary-color;
-      line-height: 24px;
-      text-align: center;
-      color: white;
+    &.bounce-enter-active {
+      animation-delay: 0.1s;
+      animation: bounce 0.35s ease;
+    }
 
-      &.bounce-enter-active {
-        animation-delay: 0.1s;
-        animation: bounce 0.35s ease;
-      }
-
-      &.bounce-leave-active {
-        animation-delay: 0.1s;
-        animation: bounceback 0.35s ease;
-      }
+    &.bounce-leave-active {
+      animation-delay: 0.1s;
+      animation: bounceback 0.35s ease;
     }
   }
+}
 </style>

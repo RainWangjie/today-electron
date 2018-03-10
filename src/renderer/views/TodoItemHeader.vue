@@ -105,11 +105,7 @@ export default {
       return getFormattedDate(this.today)
     },
     backgroundImage() {
-      // if (this.currentSpecialListItemTitle === 'Today') {
-      //   return '/static/images/unsplash/today.jpg'
-      // }
-      // return '/static/images/unsplash/header-todo.jpg'
-      return '/static/images/unsplash/today.jpg'
+      return 'static/images/unsplash/today.jpg'
     },
     ...mapGetters([
       'currentListItem',

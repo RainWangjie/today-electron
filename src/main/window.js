@@ -8,7 +8,7 @@ let mainWindow
 const isDev = process.env.NODE_ENV === 'development'
 const winURL = isDev
   ? `http://localhost:9080/`
-  : `file://${__dirname}/index.html/`
+  : `file://${__dirname}/index.html`
 
 export function createWindow() {
   if (mainWindow) return
@@ -24,5 +24,5 @@ export function createWindow() {
   mainWindow.on('closed', () => (mainWindow = null))
   Menu.setApplicationMenu(menu)
 
-  if (isDev) mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }

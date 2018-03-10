@@ -5,7 +5,7 @@ export const extractPreferencesMixin = {
   computed: {
     avatarUrl() {
       return !this.avatarCode || this.avatarCode === ''
-        ? '/static/images/default.jpeg'
+        ? 'static/images/default.jpeg'
         : this.avatarCode
     },
     ...mapGetters([

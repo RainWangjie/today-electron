@@ -23,6 +23,9 @@ This project is still a work in progress so I don't have a release for you. If y
 
 * `yarn dev` to run in development mode.
 * `yarn storybook` to develop components.
+* `yarn build` to build.
+
+Please refer to `electron-vue` for more running and building guides.
 
 ## Components
 
