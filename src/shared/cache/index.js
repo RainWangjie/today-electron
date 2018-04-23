@@ -23,7 +23,9 @@ export function storeTodoItems(todoItems) {
 }
 
 export function loadPreferences() {
-  return store.get(PREFERENCES, {})
+  return store.get(PREFERENCES, {
+    // TODO: load default preferences here, otherwise it woudn't be responsive in the first place
+  })
 }
 export function storePreferences(prefObj) {
   store.set(PREFERENCES, prefObj)

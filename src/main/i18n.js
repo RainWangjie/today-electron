@@ -1,5 +1,5 @@
-import { getLocale } from './store'
-import locales from '../locales'
+import locales from '../shared/locales'
+import { getLocale } from '../shared/cache'
 
 let dictionary
 

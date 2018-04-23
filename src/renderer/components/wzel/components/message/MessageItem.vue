@@ -1,9 +1,12 @@
 <template>
   <transition name="move">
-    <div class="message-item" :style="offsetX" v-show="visible">
+    <div class="message-item"
+         :style="offsetX"
+         v-show="visible">
       <div class="content">
         <div class="icon">
-          <i class="fa fa-fw" :class="iconType"></i>
+          <i class="fa fa-fw"
+             :class="iconType"></i>
         </div>
         <div class="desc">
           {{ desc }}
@@ -14,7 +17,7 @@
 </template>
 
 <script>
-import { indeComponentMixin } from '../../../utils/mixins/inde-component'
+import { indeComponentMixin } from '../../mixins/inde'
 
 const iconMap = {
   '': 'fa-info',
@@ -58,52 +61,43 @@ export default {
 
 
 <style lang="stylus" scoped>
-@import '../../../assets/style/variables.styl';
-@import '../../../assets/style/mixins.styl';
+@import '../../styles/variables.styl'
+@import '../../styles/mixins.styl'
 
-.message-item {
-  position: fixed;
-  left: 50%;
-  z-index: 200;
-  transition: all 0.6s ease;
+.message-item
+  position fixed
+  left 50%
+  z-index 200
+  transition all 0.6s ease
 
-  &.move-enter, &.move-leave-to {
-    transform: translateY(-120%);
-    opacity: 0;
-  }
+  &.move-enter, &.move-leave-to
+    transform translateY(-120%)
+    opacity 0
 
-  .content {
-    transform: translateX(-50%);
-    display: flex;
-    padding: 10px;
-    align-items: center;
-    border-radius: 4px;
-    background: white;
-    standard-shadow();
-    font-size: 13px;
-    line-height: 15px;
+  .content
+    transform translateX(-50%)
+    display flex
+    padding 10px
+    align-items center
+    border-radius 4px
+    background white
+    standard-shadow()
+    font-size 13px
+    line-height 15px
 
-    .icon {
-      margin-right: 8px;
+    .icon
+      margin-right 8px
 
-      i {
-        &.alert {
-          color: $danger-color;
-        }
+      i
+        &.alert
+          color $danger-color
 
-        &.warn {
-          color: $warn-color;
-        }
+        &.warn
+          color $warn-color
 
-        &.info {
-          color: $info-color;
-        }
+        &.info
+          color $info-color
 
-        &.success {
-          color: $primary-color;
-        }
-      }
-    }
-  }
-}
+        &.success
+          color $primary-color
 </style>

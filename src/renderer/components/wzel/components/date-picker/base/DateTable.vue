@@ -22,14 +22,15 @@ import {
   clearHours,
   getDayCountOfMonth,
   getFirstDayOfMonth
-} from '../../../../utils/datetime'
-import { deepCopy } from '../../../../utils/array'
+} from '../../../utils/datetime'
+import { deepCopy } from '../../../utils'
+import { t } from '../../../locale'
 
 export default {
   name: '',
   props: {
     date: {},
-    disabledDate: {}, // A function to calculate disabled dates.
+    disabledDate: {}, // a function to calculate disabled dates
     month: {},
     value: '',
     year: {}
@@ -41,7 +42,9 @@ export default {
   },
   computed: {
     days() {
-      return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+      return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => {
+        return t(`datetable.${day}`)
+      })
     },
     rawCells() {
       const date = new Date(this.year, this.month, 1)
@@ -177,65 +180,55 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../../../../assets/style/variables.styl';
-  @import '../../../../assets/style/mixins.styl';
+@import '../../../../../style/variables.styl'
+@import '../../../../../style/mixins.styl'
 
-  .date-table {
-    .week-hinter {
-      display: flex;
-      width: 100%;
+.date-table
+  .week-hinter
+    display flex
+    width 100%
 
-      .date {
-        flex: 1;
-        width: 22px;
-        line-height: 10px;
-        font-size: 10px;
-        text-align: center;
-        color: $text-color-dark-grey;
-      }
-    }
+    .date
+      flex 1
+      width 22px
+      line-height 10px
+      font-size 10px
+      text-align center
+      color $text-color-dark-grey
 
-    .cells-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 8px;
+  .cells-wrapper
+    display flex
+    flex-wrap wrap
+    margin-top 8px
 
-      .cell {
-        flex: 30px 30px 1;
-        width: 30px;
-        line-height: 30px;
-        text-align: center;
-        font-size: 14px;
-        border-radius: 2px;
-        transition: 0.2s all;
+    .cell
+      flex 30px 30px 1
+      width 30px
+      line-height 30px
+      text-align center
+      font-size 14px
+      border-radius 2px
+      transition 0.2s all
 
-        &.today, &:hover {
-          background: $background-color-light-grey;
-        }
+      &.today, &:hover
+        background $background-color-light-grey
 
-        &:hover {
-          cursor: pointer;
-        }
+      &:hover
+        cursor pointer
 
-        &.disabled {
-          color: $text-color-grey !important;
-          disable: disable;
+      &.disabled
+        color $text-color-grey !important
+        disable disable
 
-          &:hover {
-            background: none;
-            cursor: not-allowed;
-          }
-        }
+        // disabled dates are not clickable
+        &:hover
+          background none
+          cursor not-allowed
 
-        &.prev-month, &.next-month {
-          color: $text-color-dark-grey;
-        }
+      &.prev-month, &.next-month
+        color $text-color-dark-grey
 
-        &.selected {
-          background: $primary-color;
-          color: white;
-        }
-      }
-    }
-  }
+      &.selected
+        background $primary-color
+        color white
 </style>

@@ -1,10 +1,16 @@
 <template>
-  <div class="select-component" @click="handleOpen">
+  <div class="select-component"
+       @click="handleOpen">
     {{ index > -1 ? visualValue : placeholder}}
     <i class="fa fa-angle-down" />
-    <dropdown class="dropdown" transition-type="topdown" ref="selectDropdown">
+    <dropdown class="dropdown"
+              transition-type="topdown"
+              ref="selectDropdown">
       <ul class="options">
-        <li class="option" v-for="(option, index) in options" :key="option.title" @click="handleOptionClick(index)">
+        <li class="option"
+            v-for="(option, index) in options"
+            :key="option.title"
+            @click="handleOptionClick(index)">
           {{ option.title }}
         </li>
       </ul>
@@ -18,7 +24,7 @@ import Dropdown from './dropdown'
 import InputBox from './input'
 
 export default {
-  name: 'Select',
+  name: 'wz-select',
   components: { Dropdown, InputBox },
   props: {
     options: {
@@ -51,33 +57,28 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../assets/style/variables.styl';
+@import '../../../style/variables.styl'
 
-.select-component {
-  text-align: right;
-  height: 44px;
-  min-width: 120px;
-  line-height: 44px;
+.select-component
+  text-align right
+  height 44px
+  min-width 120px
+  line-height 44px
 
-  .dropdown {
-    position: absolute;
-    right: 0;
-    top: 40px;
-    padding: 0;
-    overflow: scroll;
-  }
+  .dropdown
+    position absolute
+    right 0
+    top 40px
+    padding 0
+    overflow scroll
 
-  .options {
-    .option {
-      line-height: 22px;
-      text-align: left;
-      padding: 8px;
-      transition: background-color 0.2s linear;
+  .options
+    .option
+      line-height 22px
+      text-align left
+      padding 8px
+      transition background-color 0.2s linear
 
-      &:hover {
-        background-color: $background-color-light-grey;
-      }
-    }
-  }
-}
+      &:hover
+        background-color $background-color-light-grey
 </style>

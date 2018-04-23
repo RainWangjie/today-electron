@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import ListItemView from './ListItemView'
-import SplitFrame from '../components/SplitFrame'
+import ListItemView from '../components/list'
+import SplitFrame from '../components/split-frame'
 
 export default {
   name: 'MainView',

@@ -12,7 +12,7 @@ import { mapActions, mapMutations } from 'vuex'
 import nodeSchedule from 'node-schedule'
 import 'font-awesome/css/font-awesome.css'
 
-import { getToday } from './utils/datetime'
+import { getToday } from './components/wzel/utils/datetime'
 
 export default {
   name: 'VueTodo',
@@ -58,10 +58,9 @@ export default {
 </script>
 
 <style lang="stylus">
-@import 'assets/style/index.styl';
-@import 'assets/style/mixins.styl';
+@import 'style/index.styl'
+@import 'style/mixins.styl'
 
-#app {
-  no-flex-full-screen();
-}
+#app
+  no-flex-full-screen()
 </style>

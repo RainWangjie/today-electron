@@ -1,4 +1,4 @@
-import { clearHours, getToday } from '../../utils/datetime'
+import { clearHours, getToday } from '../../components/wzel/utils/datetime'
 
 const state = {
   today: getToday()

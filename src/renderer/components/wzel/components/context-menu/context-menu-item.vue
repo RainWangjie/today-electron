@@ -1,6 +1,9 @@
 <template>
-  <li class="context-menu-item border-1px horizontal" :class="command.type" @click="handleClick">
-    <i class="fa fa-fw fa-margin-fix" :class="command.icon"></i>
+  <li class="context-menu-item border-1px horizontal"
+      :class="command.type"
+      @click="handleClick">
+    <i class="fa fa-fw fa-margin-fix"
+       :class="command.icon"></i>
     <span class="text">{{ command.title }}</span>
   </li>
 </template>
@@ -28,36 +31,30 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../assets/style/mixins.styl';
-@import '../../../assets/style/variables.styl';
+@import '../../../../style/mixins.styl'
+@import '../../../../style/variables.styl'
 
-.context-menu-item {
-  display: flex;
-  box-sizing: border-box;
-  padding: 11px 20px;
-  bottom-border($light-border-color);
-  align-items: center;
-  transition: all 0.1s linear;
+.context-menu-item
+  display flex
+  box-sizing border-box
+  padding 11px 20px
+  bottom-border($light-border-color)
+  align-items center
+  transition all 0.1s linear
 
-  &:hover, &.current {
-    background: $background-color-light-grey;
-  }
+  &:hover, &.current
+    background $background-color-light-grey
 
-  &:last-child {
-    no-border();
-  }
+  &:last-child
+    no-border()
 
-  &.danger {
-    color: $red-color;
-  }
+  &.danger
+    color $red-color
 
-  &.important {
-    color: $orange-color;
-  }
+  &.important
+    color $orange-color
 
-  .text {
-    font-size: 14px;
-    line-height: 18px;
-  }
-}
+  .text
+    font-size 14px
+    line-height 18px
 </style>

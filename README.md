@@ -6,9 +6,9 @@ Today is a cross-platform GTP application built on the power of Electron and Vue
 
 A glance of what you can do with Today:
 
-* Add a ToDo, set due date and plan date, and write a description.
+* Add a To-Do, set due date and plan date, and write a description.
 * Get suggestions from Today for today's jobs.
-* See if you complete your planned ToDos in Summary View.
+* See if you complete your planned To-Dos in Summary View.
 
 ![](./showcase/2.jpeg)
 ![](./showcase/3.jpeg)
@@ -29,7 +29,7 @@ Please refer to `electron-vue` for more running and building guides.
 
 ## Components
 
-I have written some components for this project, include:
+I have written some components for this project, including:
 
 * Calendar
 * ContextMenu
@@ -46,7 +46,7 @@ I have written some components for this project, include:
 * Switch
 * Select
 
-They are in `src/renderer/components`.
+See them in `src/renderer/components`.
 
 ---
 

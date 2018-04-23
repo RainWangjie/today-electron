@@ -1,50 +1,47 @@
 <template>
-  <div class="input-box-component">
+  <div class="wz-input">
     <template v-if="type !== 'textarea'">
-      <i
-        class="fa input-box-icon"
-        :class="icon"
-        v-if="icon">
+      <i class="fa input-box-icon"
+         :class="icon"
+         v-if="icon">
       </i>
-      <input
-        class="input-box"
-        :class="inputClasses"
-        ref="input"
-        :disabled="disabled"
-        :placeholder="placeholder"
-        :type="type" :value="value"
-        @blur="handleBlur"
-        @input="handleInput"
-        @focus="handleFocus"
-        @keypress.enter="handleEnter"
-        @keydown.esc="handleEsc"
-        v-focus="{ focusFlag, embedded }">
-      <i
-        class="fa fa-close input-box-icon"
-        v-show="clearBtnFlag && value"
-        @click="handleClear"></i>
+      <input ref="input"
+             class="input-box"
+             :class="inputClasses"
+             :disabled="disabled"
+             :placeholder="placeholder"
+             :type="type"
+             :value="value"
+             @blur="handleBlur"
+             @input="handleInput"
+             @focus="handleFocus"
+             @keypress.enter="handleEnter"
+             @keypress.esc="handleEsc" />
+      <i class="fa fa-close input-box-icon"
+         v-if="clearBtnFlag && value"
+         @click="handleClear">
+      </i>
     </template>
     <template v-else>
-      <textarea
-         class="input-textarea"
-         ref="textarea"
-         :disabled="disabled"
-         :placeholder="placeholder"
-         :value="value"
-         @blur="handleBlur"
-         @input="handleInput"
-         @focus="handleFocus">
+      <textarea class="input-textarea"
+                ref="textarea"
+                :disabled="disabled"
+                :placeholder="placeholder"
+                :value="value"
+                @blur="handleBlur"
+                @input="handleInput"
+                @focus="handleFocus">
       </textarea>
     </template>
   </div>
 </template>
 
 <script>
-import Focus from '../../utils/directives/focus'
+import { oneof } from '../utils'
 
 export default {
-  name: 'InputBox',
-  directives: { Focus },
+  name: 'wz-input',
+  directives: { focus },
   props: {
     embedded: {
       type: Boolean,
@@ -75,15 +72,16 @@ export default {
     },
     type: {
       type: String,
-      default: 'text'
+      default: 'text',
+      validator(value) {
+        return oneof(value, ['text', 'textarea'])
+      }
     },
     value: {
-      type: [String, Number, Date],
-      default: ''
+      type: [String, Number, Date]
     }
   },
   data: () => ({
-    focusFlag: false,
     innerValue: ''
   }),
   computed: {
@@ -101,10 +99,12 @@ export default {
   },
   methods: {
     blur() {
-      this.focusFlag = false
+      this.$refs.input.blur()
     },
     focus() {
-      this.focusFlag = true
+      setTimeout(() => {
+        this.$refs.input.focus()
+      })
     },
     handleBlur() {
       this.$emit('blur')
@@ -116,11 +116,9 @@ export default {
       this.$emit('focus')
     },
     handleInput(event) {
-      this.innerValue = event.target.value
-      this.$emit('input', this.innerValue)
+      this.$emit('input', (this.innerValue = event.target.value))
     },
     handleEnter() {
-      this.blur()
       this.$emit('enter', this.innerValue)
     },
     handleEsc() {
@@ -131,72 +129,60 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../assets/style/variables.styl';
+@import '../../../style/variables.styl'
 
-.input-box-component {
-  display: flex;
+.wz-input
+  display flex
 
-  .input-box {
-    box-sizing: border-box;
-    height: 44px;
-    width: 100%;
-    padding: 0 12px;
-    border: 1px solid $light-border-color;
-    border-radius: 4px;
-    line-height: 44px;
-    font-size: 14px;
-    transition: all 0.2s linear;
+  .input-box
+    box-sizing border-box
+    height 44px
+    width 100%
+    padding 0 12px
+    border 1px solid $light-border-color
+    border-radius 4px
+    line-height 44px
+    font-size 14px
+    transition all 0.2s linear
 
-    &:focus {
-      border-color: $primary-color;
-      outline-style: none;
-    }
+    &:focus
+      border-color $primary-color
+      outline-style none
 
-    &.no-border {
-      border: none;
-    }
+    &.no-border
+      border none
 
-    &.danger {
-      color: $red-color;
-    }
+    &.danger
+      color $red-color
 
-    &.warning {
-      color: $orange-color;
-    }
+    &.warning
+      color $orange-color
 
-    &.line-through {
-      color: $text-color-dark-grey;
-      text-decoration: line-through;
-    }
+    &.line-through
+      color $text-color-dark-grey
+      text-decoration line-through
 
-    &.title {
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-    }
+    &.title
+      text-align center
+      font-size 24px
+      font-weight bold
 
-    &:disabled {
-      background: none;
-    }
-  }
+    &:disabled
+      background none
 
-  .input-box-icon {
-    line-height: 44px;
-    color: $text-color-grey;
-  }
+  .input-box-icon
+    line-height 44px
+    color $text-color-grey
 
-  .input-textarea {
-    width: 100%;
-    padding: 20px;
-    min-height: 180px;
-    border: none;
-    line-height: 22px;
-    font-size: 14px;
-    resize: none;
+  .input-textarea
+    width 100%
+    padding 20px
+    min-height 180px
+    border none
+    line-height 22px
+    font-size 14px
+    resize none
 
-    &:focus {
-      outline-style: none;
-    }
-  }
-}
+    &:focus
+      outline-style none
 </style>

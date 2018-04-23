@@ -1,4 +1,4 @@
-const files = require.context('.', false, /\.js$/)
+const files = require.context('./lang', false, /\.js$/)
 const locales = {}
 
 files.keys().forEach(key => {

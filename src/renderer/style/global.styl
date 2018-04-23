@@ -1,0 +1,61 @@
+@import 'variables.styl'
+
+body, textarea
+  font-family Arial, Helvetica, sans-serif
+  cursor default
+  user-select none
+
+.border-1px
+  // For @3x retina screen.
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-retio: 1.5)
+    &.vertical
+      &::after, &::before
+        -webkit-transform scaleX(0.7)
+        transform scaleX(0.7)
+
+    &.horizontal
+      &::after, &::before
+        -webkit-transform scaleY(0.7)
+        transform scaleY(0.7)
+
+  // For @2x retina screen.
+  @media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-retio: 2)
+    &.vertical
+      &::after, &::before
+        -webkit-transform scaleX(0.5)
+        transform scaleX(0.5)
+
+    &.horizontal
+      &::after, &::before
+        -webkit-transform scaleY(0.5)
+        transform scaleY(0.5)
+
+.fa-margin-fix
+  margin-right 16px
+
+::-webkit-scrollbar
+  display none
+
+.noti-sub-title
+  font-size 14px
+  margin-top 4px
+
+.noti-item
+  list-style none
+  padding-left 10px
+  line-height 16px
+  font-size 14px
+  color $text-color-dark-grey
+
+.clearfix
+  display inline-block
+
+  &:after
+    content '.'
+    display block
+    height 0
+    clear both
+    visibility hidden
+
+.danger
+  color $danger-color

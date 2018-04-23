@@ -13,8 +13,8 @@
 </template>
 
 <script>
-  import Calendar from '../components/wzel/calendar/index'
-  import CalendarLayout from '../components/wzel/calendar/CalendarCarousel'
+  import Calendar from '../components/wzel/components/calendar/index'
+  import CalendarLayout from '../components/wzel/components/calendar/calendar-carousel'
 
   export default {
     name: 'CalendarView',
@@ -45,8 +45,8 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '../assets/style/mixins.styl';
-  @import '../assets/style/variables.styl';
+  @import '../style/mixins.styl';
+  @import '../style/variables.styl';
 
   .calendar-view {
     display: flex;

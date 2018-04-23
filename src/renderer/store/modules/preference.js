@@ -1,5 +1,5 @@
-import { getToday } from '../../utils/datetime'
-import { loadPreferences, storePreferences } from '../cache'
+import { getToday } from '../../components/wzel/utils/datetime'
+import { loadPreferences, storePreferences } from '../../../shared/cache'
 
 export const savePreferences = function() {
   storePreferences(state)

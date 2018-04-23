@@ -18,7 +18,7 @@
 import Item from './base/carousel-item'
 
 export default {
-  name: 'CalendarCarousel',
+  name: 'wz-calendar-carousel',
   components: {
     Item
   },
@@ -37,35 +37,30 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../../../assets/style/variables.styl';
-  @import '../../../assets/style/mixins.styl';
+@import '../../styles/variables.styl'
+@import '../../styles/mixins.styl'
 
-  .calendar-carousel-component {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
+.calendar-carousel-component
+  display flex
+  flex-direction column
+  justify-content center
+  height 100%
 
-    .content {
-      display: flex;
-      flex-direction: center;
+  .content
+    display flex
+    flex-direction center
 
-      .arrow {
-        flex: 0 0 58px;
-        line-height: 68px;
-        transition: all 0.2s;
-        color: $text-color-dark-grey;
+    .arrow
+      flex 0 0 58px
+      line-height 68px
+      transition all 0.2s
+      color $text-color-dark-grey
 
-        &:hover {
-          color: $primary-color;
-          transform: translateY(-2px);
-        }
-      }
+      &:hover
+        color $primary-color
+        transform translateY(-2px)
 
-      .items-wrapper {
-        flex: 1;
-        text-align: center;
-      }
-    }
-  }
+    .items-wrapper
+      flex 1
+      text-align center
 </style>

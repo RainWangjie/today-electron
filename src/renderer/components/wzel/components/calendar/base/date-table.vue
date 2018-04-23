@@ -1,11 +1,19 @@
 <template>
   <div class="calendar-date-table">
-    <div class="cell" v-for="(cell, index) in cells" :class="_cellClass(cell)" :key="index" @click="handleClick(cell, index)">
+    <div class="cell"
+         v-for="(cell, index) in cells"
+         :class="_cellClass(cell)"
+         :key="index"
+         @click="handleClick(cell, index)">
       <span class="date">{{ cell.text }}</span>
       <div class="bars">
-        <div class="complete bar" v-for="(num, index) in cell.completedCount" :key="index">
+        <div class="complete bar"
+             v-for="(num, index) in cell.completedCount"
+             :key="index">
         </div>
-        <div class="umcomplete bar" v-for="(num, index) in cell.uncompletedCount" :key="index">
+        <div class="umcomplete bar"
+             v-for="(num, index) in cell.uncompletedCount"
+             :key="index">
         </div>
       </div>
     </div>
@@ -20,8 +28,8 @@ import {
   defaultFormatter,
   getDayCountOfMonth,
   getFirstDayOfMonth
-} from '../../../../utils/datetime'
-import { deepCopy } from '../../../../utils/array'
+} from '../../../utils/datetime'
+import { deepCopy } from '../../../../../utils/array'
 
 export default {
   name: 'CalendarDateTable',
@@ -160,13 +168,13 @@ export default {
 
         let desc = ''
         if (summary.completedItems.length) {
-          desc += '<p class="noti-sub-title">Completed ToDos:</p>'
+          desc += `<p class="noti-sub-title">${this.$t('calendar.completedTodos')}</p>`
           summary.completedItems.forEach(item => {
             desc += `<li class="noti-item">${item}</li>`
           })
         }
         if (summary.uncompletedItems.length) {
-          desc += '<p class="noti-sub-title">Uncompleted ToDos:</p>'
+          desc += `<p class="noti-sub-title">${this.$t('calendar.uncompletedTodos')}</p>`
           summary.uncompletedItems.forEach(item => {
             desc += `<li class="noti-item">${item}</li>`
           })
@@ -187,76 +195,64 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../../assets/style/variables.styl';
-@import '../../../../assets/style/mixins.styl';
+@import '../../../../../style/variables.styl'
+@import '../../../../../style/mixins.styl'
 
-.calendar-date-table {
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
+.calendar-date-table
+  display flex
+  flex-wrap wrap
+  height 100%
 
-  .cell {
-    position: relative;
-    flex: (100 / 7)% 1;
-    height: (100 / 6)%;
-    background: white;
-    transition: all 0.2s;
+  .cell
+    position relative
+    flex (100 / 7)% 1
+    height (100 / 6)%
+    background white
+    transition all 0.2s
 
-    &:hover {
-      transform: translate3d(0, -8px, 0);
-      z-index: 200;
-      standard-shadow();
-    }
+    &:hover
+      transform translate3d(0, -8px, 0)
+      z-index 200
+      standard-shadow()
 
-    &.prev-month, &.next-month {
-      .date {
-        color: $text-color-dark-grey;
-      }
-    }
+    &.prev-month, &.next-month
+      .date
+        color $text-color-dark-grey
 
-    &.today {
-      .date {
-        color: white;
-        text-align: center;
-        background: $primary-color;
-      }
-    }
+    &.today
+      .date
+        color white
+        text-align center
+        background $primary-color
 
-    .date {
-      position: absolute;
-      right: 8px;
-      top: 8px;
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-      font-size: 14px;
-      border-radius: 50%;
-      text-align: right;
-    }
+    .date
+      position absolute
+      right 8px
+      top 8px
+      width 24px
+      height 24px
+      line-height 24px
+      font-size 14px
+      border-radius 50%
+      text-align right
 
-    .bars {
-      display: flex;
-      flex-wrap: wrap;
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
-      right: 12px;
+    .bars
+      display flex
+      flex-wrap wrap
+      position absolute
+      left 12px
+      bottom 12px
+      right 12px
 
-      .bar {
-        margin: 4px 2px 0 0;
-        width: 14px;
-        height: 6px;
-        border-radius: 3px;
-      }
+      .bar
+        margin 4px 2px 0 0
+        width 14px
+        height 6px
+        border-radius 3px
 
-      .complete {
-        background: $primary-color;
-      }
+      .complete
+        background $primary-color
 
-      .umcomplete {
-        background: $red-color;
-      }
-    }
-  }
-}
+      .umcomplete
+        background $red-color
 </style>

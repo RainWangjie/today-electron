@@ -14,77 +14,72 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
-  export default {
-    name: 'list-item',
-    props: {
-      title: {
-        type: String,
-        default: 'List'
+export default {
+  name: 'list-item',
+  props: {
+    title: {
+      type: String,
+      default: 'List'
+    }
+  },
+  computed: {
+    iconClass() {
+      if (this.title === 'Today') {
+        return ['fa-sun-o', 'yellow']
+      }
+      if (this.title === 'To-Do') {
+        return ['fa-check-square-o', 'blue']
       }
     },
-    computed: {
-      iconClass () {
-        if (this.title === 'Today') { return ['fa-sun-o', 'yellow'] }
-        if (this.title === 'To-Do') { return ['fa-check-square-o', 'blue'] }
-      },
-      ...mapGetters([
-        'currentSpecialListItemTitle'
-      ])
-    },
-    methods: {
-      handleClick () {
-        this.$emit('select-special-list-item', this.title)
-      }
+    ...mapGetters(['currentSpecialListItemTitle'])
+  },
+  methods: {
+    handleClick() {
+      this.$emit('select-special-list-item', this.title)
     }
   }
+}
 </script>
 
 <style lang="stylus" scoped>
-  @import '../assets/style/mixins.styl';
-  @import '../assets/style/variables.styl';
+@import '../style/mixins.styl'
+@import '../style/variables.styl'
 
-  .list-item {
-    display: flex;
-    box-sizing: border-box;
-    padding: 0 20px;
-    height: 44px;
-    background-color: white;
-    bottom-border($light-border-color);
-    align-items: center;
+.list-item
+  display flex
+  box-sizing border-box
+  padding 0 20px
+  height 44px
+  background-color white
+  bottom-border($light-border-color)
+  align-items center
 
-    &.current, &:hover {
-      background: $background-color-light-grey;
-    }
+  &.current, &:hover
+    background $background-color-light-grey
 
-    .icon-wrapper {
-      flex: 0 0 22px;
-      width: 22px;
-      height: 22px;
-      color: $text-color-grey;
-      line-height: 22px;
+  .icon-wrapper
+    flex 0 0 22px
+    width 22px
+    height 22px
+    color $text-color-grey
+    line-height 22px
 
-      .yellow {
-        color: $orange-color;
-      }
+    .yellow
+      color $orange-color
 
-      .blue {
-        color: $blue-color;
-      }
-    }
+    .blue
+      color $blue-color
 
-    .title {
-      flex: 1;
-      margin-left: 10px;
-      line-height: 14px;
-      font-size: 14px;
-    }
+  .title
+    flex 1
+    margin-left 10px
+    line-height 14px
+    font-size 14px
 
-    .handler {
-      width: 22px;
-      height: 22px;
-      background: #d8d8d8;
-    }
-  }
+  .handler
+    width 22px
+    height 22px
+    background #d8d8d8
 </style>

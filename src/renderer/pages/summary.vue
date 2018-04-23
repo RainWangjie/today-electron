@@ -16,10 +16,10 @@
 <script>
   import { mapActions, mapGetters } from 'vuex'
 
-  import CalendarView from './CalendarView.vue'
-  import UserInfoView from './UserInfoView.vue'
+  import CalendarView from './calendar.vue'
+  import UserInfoView from './user-info.vue'
 
-  import SplitFrame from '../components/SplitFrame.vue'
+  import SplitFrame from '../components/split-frame.vue'
 
   export default {
     name: 'summary-view',
@@ -52,8 +52,8 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '../assets/style/mixins.styl';
-  @import '../assets/style/variables.styl';
+  @import '../style/mixins.styl';
+  @import '../style/variables.styl';
 
   .summary-view {
     width: 100%;

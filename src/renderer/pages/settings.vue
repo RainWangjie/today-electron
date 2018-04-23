@@ -17,15 +17,15 @@
           <div class="options-wrapper">
             <div class="options">
               <div class="option border-1px horizontal">
-                <span class="desc">{{ $t('message.playSound') }}</span>
+                <span class="desc">{{ $t('setting.playSound') }}</span>
                 <switcher :state="playSound" @switched="handleTogglePlaySound" />
               </div>
               <div class="option border-1px horizontal">
-                <span class="desc">{{ $t('message.animation') }}</span>
+                <span class="desc">{{ $t('setting.animation') }}</span>
                 <switcher :state="openAni" @switched="handleToggleOpenAni" />
               </div>
               <div class="option border-1px horizontal">
-                <span class="desc">语言</span>
+                <span class="desc">{{ $t('setting.language') }}</span>
                 <div class="select-wrapper">
                   <wz-select :options="languageOptions" :index="languageIndex" @select="handleLanguageSelect"></wz-select>
                 </div>
@@ -34,7 +34,7 @@
           </div>
           <!-- This is the sticky footer. -->
           <div class="copyright">
-            {{ $t('message.copyright') }}
+            {{ $t('setting.copyright') }}
           </div>
         </div>
       </div>
@@ -46,12 +46,12 @@
 import { mapGetters, mapMutations } from 'vuex'
 import { ipcRenderer } from 'electron'
 
-import * as types from '../../shared/eventTypes'
-import InputBox from '../components/InputBox'
-import Divider from '../components/wzel/divider'
-import Switcher from '../components/wzel/switcher'
-import ButtonBase from '../components/wzel/button'
-import WzSelect from '../components/wzel/select'
+import * as types from '../../shared/event-types'
+import InputBox from '../components/wzel/components/input'
+import Divider from '../components/wzel/components/divider'
+import Switcher from '../components/wzel/components/switcher'
+import ButtonBase from '../components/wzel/components/button'
+import WzSelect from '../components/wzel/components/select'
 import { extractPreferencesMixin } from '../utils/mixins/pref'
 import { getLocale, setLocale } from '../../shared/cache'
 
@@ -66,35 +66,9 @@ const languageOptions = [
   }
 ]
 
-const i18n = {
-  messages: {
-    en: {
-      message: {
-        copyright: 'Copyright Wendell Hu 2017-18 All Rights Reserved',
-        playSound: 'Play Sound',
-        animation: 'Show Open Animation',
-        usernameNotNone: 'Username cannot be none',
-        usernameChanged: 'Username is changed to {username}',
-        languageChagned: 'If would take effect the last time you open Today'
-      }
-    },
-    zh: {
-      message: {
-        copyright: '版权所有 Wendell Hu 2017-18 保留所有权利',
-        playSound: '播放声音',
-        animation: '启动展示题图',
-        usernameNotNone: '用户名不能为空',
-        usernameChanged: '用户名修改为 {username}',
-        languageChagned: '将会在你下一次启动 Today 的时候生效'
-      }
-    }
-  }
-}
-
 export default {
   name: 'SettingsView',
   mixins: [extractPreferencesMixin],
-  i18n,
   components: {
     InputBox,
     Divider,
@@ -119,7 +93,7 @@ export default {
     ipcRenderer.on(types.AVATAR_RESPONSE, (event, base64code) => {
       this.setAvatar(base64code)
       this.$message({
-        desc: 'Avatar changed!',
+        desc: this.$t('setting.avatarChanged'),
         type: 'info'
       })
     })
@@ -148,13 +122,13 @@ export default {
     handleUsernameEnter(username) {
       if (username === '') {
         this.$message({
-          desc: this.$i18n.t('message.usernameNotNone'),
+          desc: this.$t('setting.usernameNotNone'),
           type: 'alert'
         })
         this.innerUsername = this.username
       } else if (username !== this.username) {
         this.$message({
-          desc: this.$i18n.t('message.usernameChanged', { username }),
+          desc: this.$t('setting.usernameChanged', { username }),
           type: 'info'
         })
         this.setUsername(username)
@@ -180,7 +154,7 @@ export default {
       this.languageIndex = index
       this.$message({
         type: 'info',
-        desc: this.$i18n.t('message.languageChagned')
+        desc: this.$t('setting.languageChagned')
       })
     },
     ...mapMutations({
@@ -194,8 +168,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../assets/style/mixins.styl';
-@import '../assets/style/variables.styl';
+@import '../style/mixins.styl';
+@import '../style/variables.styl';
 
 .settings-view {
   full-screen();

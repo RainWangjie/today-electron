@@ -26,6 +26,16 @@ const Modal = function(options) {
   return modal.vm
 }
 
+Modal.dialog = function(options) {
+  options.type = 'dialog'
+  return Modal(options)
+}
+
+Modal.confirm = function(options) {
+  options.type = 'confirm'
+  return Modal(options)
+}
+
 Modal.close = function() {
   modal = null
 }

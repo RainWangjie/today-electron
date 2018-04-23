@@ -1,15 +1,29 @@
 <template>
   <div class="date-picker-component">
-    <div class="dropdown-wrapper" @mousedown.prevent.stop>
-      <dropdown ref="dropdown" :auto-hide="false">
-        <div class="change-mode-header border-1px horizontal" v-if="selectTime">
-          <segment :options="['Date', 'Time']" @segment-changed="handleSwitchMode" />
+    <div class="dropdown-wrapper"
+         @mousedown.stop.prevent>
+      <dropdown ref="dropdown"
+                :auto-hide="false">
+        <div class="change-mode-header border-1px horizontal"
+             v-if="selectTime">
+          <segment :options="['Date', 'Time']"
+                   @segment-changed="handleSwitchMode" />
         </div>
         <div ref="picker"></div>
       </dropdown>
     </div>
     <div class="input-wrapper">
-      <input-box ref="input" :embedded="true" :border="false" :classes="classes" :clear-btn-flag="true" :icon="icon" :placeholder="placeholder" :value="visualValue" @blur="handleBlur" @enter="handleBlur" @focus="handleFocus" @input-clear="handleClear" />
+      <input-box ref="input"
+                 :border="false"
+                 :classes="classes"
+                 :clear-btn-flag="true"
+                 :icon="icon"
+                 :placeholder="placeholder"
+                 :value="visualValue"
+                 @blur="handleBlur"
+                 @enter="handleBlur"
+                 @focus="handleFocus"
+                 @input-clear="handleClear" />
     </div>
   </div>
 </template>
@@ -22,10 +36,10 @@ import Segment from '../segment.vue'
 import ButtonBase from '../button.vue'
 import DatePanel from './panel/Date.vue'
 import TimePanel from './panel/Time.vue'
-import { defaultFormatter } from '../../../utils/datetime'
+import { defaultFormatter } from '../../utils/datetime'
 
 export default {
-  name: 'DatePicker',
+  name: 'WzDatePicker',
   components: {
     Dropdown,
     InputBox,
@@ -149,38 +163,32 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../assets/style/variables.styl';
-@import '../../../assets/style/mixins.styl';
+@import '../../../../style/variables.styl'
+@import '../../../../style/mixins.styl'
 
-.date-picker-component {
-  position: relative;
+.date-picker-component
+  position relative
 
-  .input-wrapper {
-    padding: 0 14px;
-  }
+  .input-wrapper
+    padding 0 14px
 
-  .change-mode-header {
-    padding: 8px 8px 16px;
-    margin-bottom: 8px;
-    text-align: center;
-    bottom-border($light-border-color);
+  .change-mode-header
+    padding 8px 8px 16px
+    margin-bottom 8px
+    text-align center
+    bottom-border($light-border-color)
 
-    .title {
-      flex: 1;
-      font-size: 14px;
-      color: $text-color-dark-grey;
-    }
+    .title
+      flex 1
+      font-size 14px
+      color $text-color-dark-grey
 
-    .switcher-wrapper {
-      flex: 0 0 48px;
-    }
-  }
+    .switcher-wrapper
+      flex 0 0 48px
 
-  .dropdown-wrapper {
-    position: absolute;
-    top: 36px;
-    left: 36px;
-    z-index: 200;
-  }
-}
+  .dropdown-wrapper
+    position absolute
+    top 36px
+    left 36px
+    z-index 200
 </style>

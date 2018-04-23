@@ -1,5 +1,7 @@
 <template>
-  <div class="wz-button" :class="classes" @click="handleClick">
+  <div class="wz-button"
+       :class="classes"
+       @click="handleClick">
     {{ text }}
     <slot></slot>
   </div>
@@ -48,89 +50,74 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../../assets/style/variables.styl';
+@import '../../../style/variables.styl'
 
-  .wz-button {
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    box-sizing: border-box;
-    border-radius: 4px;
-    background: $primary-color;
-    transition: all 0.2s linear;
+.wz-button
+  display inline-block
+  vertical-align top
+  text-align center
+  box-sizing border-box
+  border-radius 4px
+  background $primary-color
+  transition all 0.2s linear
 
-    // Sizes.
-    &.big {
-      width 144px
-      height 48px
-      line-height 48px
-      font-size 22px
-    }
+  // Sizes.
+  &.big
+    width 144px
+    height 48px
+    line-height 48px
+    font-size 22px
 
-    &.medium {
-      width: 82px;
-      height: 34px;
-      line-height: 34px;
-      font-size: 14px;
-    }
+  &.medium
+    width 82px
+    height 34px
+    line-height 34px
+    font-size 14px
 
-    &.small {
-      width: 50px;
-      height: 28px;
-      line-height: 28px;
-      font-size: 12px;
-    }
+  &.small
+    width 50px
+    height 28px
+    line-height 28px
+    font-size 12px
 
-    // Types.
-    &.primary {
-      color: white;
-      background: $primary-color;
+  // Types.
+  &.primary
+    color white
+    background $primary-color
 
-      &:hover {
-        background: $primary-color-highlighted;
-      }
-    }
+    &:hover
+      background $primary-color-highlighted
 
-    &.secondary {
-      color: white;
-      background: $background-color-disabled-grey;
+  &.secondary
+    color white
+    background $background-color-disabled-grey
 
-      &:hover {
-        background: $background-color-disabled-grey-highlighted;
-      }
-    }
+    &:hover
+      background $background-color-disabled-grey-highlighted
 
-    &.danger {
-      color: white
-      background: $danger-color
+  &.danger
+    color white
+    background $danger-color
 
-      &:hover {
-        background: $danger-color-highlighted
-      }
-    }
+    &:hover
+      background $danger-color-highlighted
 
-    &.disabled {
-      color: white;
-      background: $background-color-disabled-grey !important;
-    }
+  &.disabled
+    color white
+    background $background-color-disabled-grey !important
 
-    &.inverse {
-      color: $primary-color;
-      border: 1px solid $primary-color;
-      background: white;
+  &.inverse
+    color $primary-color
+    border 1px solid $primary-color
+    background white
 
-      :hover {
-        border: 1px solid $primary-color-highlighted;
-      }
-    }
+    :hover
+      border 1px solid $primary-color-highlighted
 
-    &.danger {
-      color: white
-      background: $danger-color;
+  &.danger
+    color white
+    background $danger-color
 
-      &:hover {
-        background: $danger-color-highlighted;
-      }
-    }
-  }
+    &:hover
+      background $danger-color-highlighted
 </style>

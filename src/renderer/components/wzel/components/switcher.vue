@@ -32,32 +32,28 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../../assets/style/mixins.styl';
-  @import '../../assets/style/variables.styl';
+@import '../../../style/mixins.styl'
+@import '../../../style/variables.styl'
 
-  .switcher-component {
-    display: inline-block;
-    width: 48px;
-    height: 24px;
-    border-radius: 12px;
-    border: 1px solid $light-border-color;
+.switcher-component
+  display inline-block
+  width 48px
+  height 24px
+  border-radius 12px
+  border 1px solid $light-border-color
 
-    .hinter {
-      margin: 3px;
-      height: 18px;
-      width: 18px;
-      border-radius: 50%;
-      transition: all 0.2s ease;
+  .hinter
+    margin 3px
+    height 18px
+    width 18px
+    border-radius 50%
+    transition all 0.2s ease
 
-      &.off {
-        transform: translate3d(0, 0, 0);
-        background-color: $background-color-grey;
-      }
+    &.off
+      transform translate3d(0, 0, 0)
+      background-color $background-color-grey
 
-      &.on {
-        transform: translate3d(24px, 0, 0);
-        background-color: $primary-color;
-      }
-    }
-  }
+    &.on
+      transform translate3d(24px, 0, 0)
+      background-color $primary-color
 </style>

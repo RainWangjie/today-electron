@@ -59,59 +59,50 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../assets/style/mixins.styl';
-@import '../assets/style/variables.styl';
+@import '../style/mixins.styl'
+@import '../style/variables.styl'
 
-.user-info-co {
-  width: 100%;
-  height: 60px;
-  box-sizing: border-box;
-  padding: 0 10px 0 20px;
-  bottom-border(rgba(7, 17, 27, 0.1));
+.user-info-co
+  width 100%
+  height 60px
+  box-sizing border-box
+  padding 0 10px 0 20px
+  bottom-border(rgba(7, 17, 27, 0.1))
 
-  .content {
-    display: flex;
-    align-items: center;
+  .content
+    display flex
+    align-items center
 
-    .avatar-wrapper {
-      flex: 0 0 36px;
+    .avatar-wrapper
+      flex 0 0 36px
 
-      img {
-        margin: 12px 0;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-      }
-    }
+      img
+        margin 12px 0
+        width 36px
+        height 36px
+        border-radius 50%
 
-    .info-wrapper {
-      flex: 1;
-      flex-direction: column;
-      margin-left: 10px;
+    .info-wrapper
+      flex 1
+      flex-direction column
+      margin-left 10px
 
-      .name {
-        font-size: 16px;
-        line-height: 16px;
-      }
+      .name
+        font-size 16px
+        line-height 16px
 
-      .sync {
-        margin-top: 4px;
-        font-size: 10px;
-        line-height: 10px;
-        color: $text-color-dark-grey;
-      }
-    }
+      .sync
+        margin-top 4px
+        font-size 10px
+        line-height 10px
+        color $text-color-dark-grey
 
-    .settings-wrapper {
-      padding: 4px;
-      color: $text-color-dark-grey;
-      transition: all 0.2s;
+    .settings-wrapper
+      padding 4px
+      color $text-color-dark-grey
+      transition all 0.2s
 
-      &:hover {
-        color: $primary-color;
-        transform: translateY(-2px);
-      }
-    }
-  }
-}
+      &:hover
+        color $primary-color
+        transform translateY(-2px)
 </style>

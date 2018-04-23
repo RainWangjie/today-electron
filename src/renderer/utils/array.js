@@ -4,12 +4,6 @@ export function findItemIndexByKey(list, array, key) {
   })
 }
 
-/**
- * Copy a variable, array or object.
- *
- * @param {any} data
- * @returns
- */
 export const deepCopy = function(data) {
   const t = typeOf(data)
   let o

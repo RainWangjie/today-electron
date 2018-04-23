@@ -22,7 +22,6 @@ export function createWindow() {
   })
   mainWindow.loadURL(winURL)
   mainWindow.on('closed', () => (mainWindow = null))
-  Menu.setApplicationMenu(menu)
 
-  mainWindow.webContents.openDevTools()
+  Menu.setApplicationMenu(menu)
 }

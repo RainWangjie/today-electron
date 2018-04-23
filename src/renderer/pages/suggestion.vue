@@ -2,146 +2,152 @@
   <div class="suggestion-view">
     <div class="header">
       <h1>
-        {{ $t('message.suggestion') }}
+        {{ $t('suggestion.suggestion') }}
       </h1>
       <p class="desc">
-        {{ $t('message.desc') }}
+        {{ $t('suggestion.desc') }}
       </p>
     </div>
-    <transition-group name="height"
-                      class="suggestion-list">
-      <li class="suggestion-item"
-          v-for="(suggestion, index) in suggestedTodo"
-          :key="index">
-        <span class="title">{{ suggestion.title }}</span>
-        <span class="list">{{ $t('message.in') }} {{ listNameFor(suggestion) }}</span>
-        <button-base :text="$t('message.add')"
+    <template v-if="suggestedTodo.length">
+      <transition-group name="height"
+                        class="suggestion-list">
+        <li class="suggestion-item"
+            v-for="(suggestion, index) in suggestedTodo"
+            :key="index">
+          <span class="title">{{ suggestion.title }}</span>
+          <span class="list">{{ $t('suggestion.in') }} {{ listNameFor(suggestion) }}</span>
+          <wz-button :text="$t('suggestion.add')"
                      size="small"
-                     @click="handleSelectSuggestion(suggestion)"></button-base>
-      </li>
-    </transition-group>
+                     @click="acceptSuggestion(suggestion)" />
+        </li>
+      </transition-group>
+    </template>
+    <blank v-else
+           :info="$t('suggestion.empty')"></blank>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
-  import { clearHours, getCurrentDatetime, getToday, ONE_DAY } from '../utils/datetime'
-  import ButtonBase from '../components/button'
+import {
+  clearHours,
+  getCurrentDatetime,
+  getToday,
+  ONE_DAY
+} from '../components/wzel/utils/datetime'
+import WzButton from '../components/wzel/components/button'
+import Blank from '../pages/blank'
 
-  export default {
-    name: 'SuggestionView',
-    components: { ButtonBase },
-    i18n: {
-      messages: {
-        en: {
-          message: {
-            suggestion: 'Suggestions',
-            desc: `Don't know what to do first? Please consider about our suggestions.`,
-            in: 'in',
-            add: 'Add'
-          }
-        },
-        zh: {
-          message: {
-            suggestion: '建议',
-            desc: `拿不准现在该做什么？请考虑我们的建议。`,
-            in: '位于',
-            add: '添加'
-          }
-        }
-      }
+/* eslint-disable no-unused-vars */
+const getSuggestedTodos = function(todos) {
+  let ret = []
+
+  todos.forEach(todo => {
+    const untilDuedate = clearHours(todo.dueDatetime) - getToday()
+    if (
+      todo.completedFlag !== true &&
+      todo.dueDatetime &&
+      untilDuedate <= ONE_DAY * 2 &&
+      untilDuedate > 0 &&
+      !todo.planDatetime
+    ) {
+      ret.push(todo)
+    }
+  })
+
+  return ret
+}
+
+export default {
+  name: 'Suggestion',
+  components: { WzButton, Blank },
+  data: () => ({
+    suggestedTodo: []
+  }),
+  computed: {
+    ...mapGetters(['todoItems', 'listItems'])
+  },
+  methods: {
+    acceptSuggestion(suggestion) {
+      this.setPlanDatetime({
+        item: suggestion,
+        date: getCurrentDatetime()
+      })
     },
-    data: () => ({
-      suggestedTodo: []
-    }),
-    computed: {
-      ...mapGetters([ 'todoItems', 'listItems' ])
-    },
-    methods: {
-      handleSelectSuggestion (suggestion) {
-        this.setPlanDatetime({ item: suggestion, date: getCurrentDatetime() })
-      },
-      listNameFor (item) {
-        const puuid = item.listUUID
-        let title = ''
+    listNameFor(item) {
+      const puuid = item.listUUID
+      let title = ''
 
-        if (!puuid) {
-          title = 'To-Do'
-        } else {
-          const lists = this.listItems
-          lists.forEach(item => {
-            if (item._id === puuid) {
-              title = item.title
-            }
-          })
-        }
-        return title
-      },
-      refresh () {
-        const ret = []
-        this.todoItems.forEach(element => {
-          const timeInterval = clearHours(element.dueDatetime) - getToday()
-          if (
-            element.completedFlag !== true && // Maybe null or false.
-            element.dueDatetime &&
-            timeInterval <= ONE_DAY * 2 &&
-            timeInterval > 0
-          ) {
-            ret.push(element)
+      if (!puuid) {
+        title = 'To-Do'
+      } else {
+        const lists = this.listItems
+        lists.forEach(item => {
+          if (item._id === puuid) {
+            title = item.title
           }
         })
-        this.suggestedTodo = ret
-      },
-      ...mapMutations({
-        setPlanDatetime: 'SET_PLAN_DATETIME'
-      })
-    }
+      }
+      return title
+    },
+    refresh() {
+      this.suggestedTodo = getSuggestedTodos(this.todoItems)
+    },
+    ...mapMutations({
+      setPlanDatetime: 'SET_PLAN_DATETIME'
+    })
   }
+}
 </script>
 
 <style lang="stylus" scoped>
-@import '../assets/style/variables.styl';
+@import '../style/variables.styl'
 
-.suggestion-view {
-  min-width: 350px;
-  padding: 10px;
-  color: black;
+.suggestion-view
+  display flex
+  flex-direction column
+  width 400px
+  min-height 200px
+  max-height 600px
+  overflow scroll
+  padding 10px
+  padding-bottom 0
+  color black
 
-  .header {
-    .desc {
-      margin-top: 8px;
-      font-size: $text-small;
-      color: $text-color-dark-grey;
-    }
-  }
+  .header
+    flex 0 0 36px
 
-  .suggestion-list {
-    margin-top: 8px;
+    .desc
+      margin-top 8px
+      font-size $text-small
+      color $text-color-dark-grey
 
-    .suggestion-item {
-      display: flex;
-      margin: 10px 0;
-      line-height: 28px;
-      align-items: center;
-      transition: all 0.2s linear;
+  .suggestion-list
+    flex 1
+    margin-top 8px
 
-      .title {
-        flex: 2;
-      }
+    .suggestion-item
+      display flex
+      margin-top 10px
+      line-height 28px
+      height 28px
+      transition all 0.1s linear
 
-      .list {
-        flex: 1;
-        font-size: $text-small;
-        line-height: 14px;
-        color: $text-color-dark-grey;
-      }
+      .title
+        flex 2
+        padding-right 10px
+        overflow hidden
+        white-space nowrap
+        text-overflow ellipsis
+        font-size 16px
 
-      &.height-leave-to {
-        height: 0;
-        opacity: 0;
-      }
-    }
-  }
-}
+      .list
+        flex 1
+        font-size $text-small
+        color $text-color-dark-grey
+
+      &.height-enter, &.height-leave-to
+        height 0
+        opacity 0
 </style>

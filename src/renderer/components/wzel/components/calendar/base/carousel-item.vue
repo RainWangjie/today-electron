@@ -1,7 +1,10 @@
 <template>
   <div class="carousel-item">
     <div class="cell-wrapper">
-      <div class="cell" v-for="(cell, index) in cells" :class="_cellClass(cell)" :key="index"></div>
+      <div class="cell"
+           v-for="(cell, index) in cells"
+           :class="_cellClass(cell)"
+           :key="index"></div>
     </div>
     <div class="month">
       {{ this.year }} / {{ (this.month % 12) + 1 }}
@@ -10,8 +13,8 @@
 </template>
 
 <script>
-import { getDayCountOfMonth, getFirstDayOfMonth } from '../../../../utils/datetime'
-import { deepCopy } from '../../../../utils/array'
+import { getDayCountOfMonth, getFirstDayOfMonth } from '../../../utils/datetime'
+import { deepCopy } from '../../../utils'
 
 export default {
   name: 'CalendarLayoutItem',
@@ -92,27 +95,31 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../../../../assets/style/variables.styl';
-  @import '../../../../assets/style/mixins.styl';
+@import '../../../../../style/variables.styl'
+@import '../../../../../style/mixins.styl'
 
-  .carousel-item
-    display: inline-block
-    width: 80px
-    .cell-wrapper
-      display: flex
-      flex-wrap: wrap
-      width: 70px
-      margin: auto
-      .cell
-        width: 10px
-        height: 10px
-        transition: all 0.2s
-        &.this-month
-          background: $primary-color
-    .month
-      margin-top: 6px
-      width: 100%
-      text-align: center
-      font-size: 18px
-      color: $primary-color
+.carousel-item
+  display inline-block
+  width 80px
+
+  .cell-wrapper
+    display flex
+    flex-wrap wrap
+    width 70px
+    margin auto
+
+    .cell
+      width 10px
+      height 10px
+      transition all 0.2s
+
+      &.this-month
+        background $primary-color
+
+  .month
+    margin-top 6px
+    width 100%
+    text-align center
+    font-size 18px
+    color $primary-color
 </style>

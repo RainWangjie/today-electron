@@ -3,10 +3,9 @@ import { createTray, destroyTray } from './tray'
 import base64Img from 'base64-img'
 
 import { mainWindow } from './window'
-import * as types from '../shared/eventTypes'
+import * as types from '../shared/event-types'
 
 ipcMain.on(types.AVATAR_REQUIRE, event => {
-  console.log('sig')
   dialog.showOpenDialog(
     {
       window: mainWindow,

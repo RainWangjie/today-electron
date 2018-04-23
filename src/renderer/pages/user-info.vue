@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { countDatesToTodayFrom } from '../utils/datetime'
+import { countDatesToTodayFrom } from '../components/wzel/utils/datetime'
 import { extractPreferencesMixin } from '../utils/mixins/pref'
 
 const i18n = {
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../assets/style/variables.styl';
+@import '../style/variables.styl';
 
 .user-info-view {
   width: 100%;

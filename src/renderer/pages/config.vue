@@ -31,9 +31,9 @@
 <script>
 import { mapActions } from 'vuex'
 
-import ButtonBase from '../components/button'
-import SplitFrame from '../components/SplitFrame'
-import InputBox from '../components/InputBox'
+import ButtonBase from '../components/wzel/components/button'
+import SplitFrame from '../components/split-frame'
+import InputBox from '../components/wzel/components/input'
 
 export default {
   name: 'config-view',
@@ -43,7 +43,6 @@ export default {
       username: ''
     }
   },
-  computed: {},
   methods: {
     _goToMain() {
       this.$router.push({
@@ -73,8 +72,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../assets/style/mixins.styl';
-@import '../assets/style/variables.styl';
+@import '../style/mixins.styl';
+@import '../style/variables.styl';
 
 .config-view {
   transition-fade();

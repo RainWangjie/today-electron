@@ -39,18 +39,17 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.blank-view {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
+.blank-view
+  display flex
+  flex 1
+  width 100%
+  height 100%
+  flex-direction column
+  justify-content center
 
-  .logo {
-    margin: auto;
-    width: 100px;
-    text-align: center;
-    color: #d8d8d8;
-  }
-}
+  .logo
+    margin auto
+    width 100px
+    text-align center
+    color #d8d8d8
 </style>

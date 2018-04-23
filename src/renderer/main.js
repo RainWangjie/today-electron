@@ -3,11 +3,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import i18n from './i18n'
-
-import Noti from './components/Notification'
-import Message from './components/Message'
-import Modal from './components/Modal'
-import ContextMenu from './components/ContextMenu'
+import wzel from './components/wzel/index'
 
 import { dateFormatter } from './utils/filters/dateformatter'
 import { savePreferences } from './store/modules/preference'
@@ -16,12 +12,9 @@ import { saveListItems } from './store/modules/list_item'
 import { saveDailySummaries } from './store/modules/daily_summary'
 
 Vue.config.productionTip = false
-Vue.filter('date', dateFormatter)
+Vue.use(wzel)
 
-Vue.prototype.$noti = Noti
-Vue.prototype.$message = Message
-Vue.prototype.$modal = Modal
-Vue.prototype.$contextMenu = ContextMenu
+Vue.filter('date', dateFormatter)
 
 // Save everything before quit application.
 window.onbeforeunload = e => {

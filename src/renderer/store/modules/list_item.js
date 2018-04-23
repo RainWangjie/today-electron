@@ -1,7 +1,7 @@
-import ListItem from '../../assets/js/list_item'
+import ListItem from '../../models/list-item'
 
 import { findItemIndexByKey } from '../../utils/array'
-import { loadListItems, storeListItems } from '../../store/cache'
+import { loadListItems, storeListItems } from '../../../shared/cache'
 
 export const saveListItems = function() {
   storeListItems(state.listItems)

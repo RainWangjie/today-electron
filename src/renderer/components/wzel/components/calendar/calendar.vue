@@ -1,6 +1,7 @@
 <template>
   <div class="calendar">
-    <date-table :month="month" :year="year" />
+    <date-table :month="month"
+                :year="year" />
   </div>
 </template>
 
@@ -8,7 +9,7 @@
 import DateTable from './base/date-table'
 
 export default {
-  name: 'Calendar',
+  name: 'wz-calendar',
   components: {
     DateTable
   },
@@ -20,7 +21,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.calendar {
-  height: 100%;
-}
+.calendar
+  height 100%
 </style>

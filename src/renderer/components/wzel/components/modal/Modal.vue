@@ -1,24 +1,33 @@
 <template>
   <transition name="fade">
-    <div class="wz-modal-component" @click.stop="_close" v-show="visible">
-      <div class="modal-container" @click.stop>
+    <div class="wz-modal-component"
+         @click.stop="_close"
+         v-show="visible">
+      <div class="modal-container"
+           @click.stop>
         <div class="modal-header">
           {{ header }}
         </div>
         <div class="modal-body">
           <!-- Display some text if it's a confirm box. -->
           <div v-if="type === 'confirm'">
-            <p>{{ text || $t('message.text') }}</p>
+            <p>{{ text }}</p>
           </div>
           <!-- Display an input if it's a dialog box. -->
           <div v-else-if="type === 'dialog'">
-            <input-box ref="inputBox" v-model="input" :embedded="true" :placeholder="text || $t('message.text')" @enter="handleEnter" />
+            <input-box ref="input"
+                       v-model="input"
+                       :placeholder="text"
+                       @enter="handleEnter" />
           </div>
-          <div v-else></div>
         </div>
         <div class="modal-footer">
-          <button-base type="inverse" :text="footerCancel" @click="_close" />
-          <button-base :type="_footerConfirmType" :text="footerConfirm" @click="handleConfirm" />
+          <wz-button type="inverse"
+                     :text="footerCancel"
+                     @click="_close" />
+          <wz-button :type="_footerConfirmType"
+                     :text="footerConfirm"
+                     @click="handleConfirm" />
         </div>
       </div>
     </div>
@@ -26,22 +35,25 @@
 </template>
 
 <script>
-import ButtonBase from '../button'
+import WzButton from '../button'
 import InputBox from '../input'
-import { indeComponentMixin } from '../../../utils/mixins/inde-component'
+import { t } from '../../locale'
+import { indeComponentMixin } from '../../mixins/inde'
 
 export default {
   name: 'Modal',
   mixins: [indeComponentMixin],
-  data: () => ({
-    header: 'Header',
-    footerCancel: 'Cancel',
-    footerConfirm: 'Confirm',
-    footerConfirmType: '',
-    type: 'confirm',
-    text: 'Placeholder',
-    input: ''
-  }),
+  data: function() {
+    return {
+      header: t('header'),
+      footerCancel: t('cancel'),
+      footerConfirm: t('confirm'),
+      footerConfirmType: '',
+      type: t('confirm'),
+      text: t('placeholder'),
+      input: ''
+    }
+  },
   computed: {
     _footerConfirmType() {
       if (this.footerConfirmType) return this.footerConfirmType
@@ -69,52 +81,53 @@ export default {
     },
     handleEnter() {
       this.handleConfirm()
+    },
+    focus() {
+      this.$refs.input.focus()
     }
   },
+  mounted() {
+    if (this.type === 'dialog') this.focus()
+  },
   components: {
-    ButtonBase,
+    WzButton,
     InputBox
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../assets/style/mixins.styl';
-@import '../../../assets/style/variables.styl';
+@import '../../styles/mixins.styl'
+@import '../../styles/variables.styl'
 
-.wz-modal-component {
-  full-screen();
-  transition-fade();
-  justify-content: center;
-  align-items: center;
-  z-index: 200;
-  background: $background-color-mask-grey;
+.wz-modal-component
+  full-screen()
+  transition-fade()
+  justify-content center
+  align-items center
+  z-index 200
+  background $background-color-mask-grey
 
-  .modal-container {
-    min-width: 320px;
-    padding: 20px;
-    background: white;
-    border-radius: 4px;
-    standard-shadow();
+  .modal-container
+    min-width 320px
+    max-width 450px
+    padding 20px
+    background white
+    border-radius 4px
+    standard-shadow()
 
-    .modal-header {
-      line-height: 16px;
-      font-size: 16px;
+    .modal-header
+      line-height 16px
+      font-size 16px
 
-      h1 {
-        font-weight: bold;
-      }
-    }
+      h1
+        font-weight bold
 
-    .modal-body {
-      margin: 18px 0;
-      font-size: 16px;
-      line-height: 20px;
-    }
+    .modal-body
+      margin 18px 0
+      font-size 16px
+      line-height 20px
 
-    .modal-footer {
-      text-align: right;
-    }
-  }
-}
+    .modal-footer
+      text-align right
 </style>

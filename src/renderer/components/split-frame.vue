@@ -27,25 +27,21 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../assets/style/variables.styl';
-  @import '../assets/style/mixins.styl';
+@import '../style/variables.styl'
+@import '../style/mixins.styl'
 
-  .split-frame-base {
-    full-screen();
+.split-frame-base
+  full-screen()
 
-    .left-column {
-      flex: 0 0 260px;
-      overflow: hidden;
-    }
+  .left-column
+    flex 0 0 260px
+    overflow hidden
 
-    .right-column {
-      &.border {
-        left-border($light-border-color);
-        padding-left: 1px;
-      }
+  .right-column
+    &.border
+      left-border($light-border-color)
+      padding-left 1px
 
-      flex: 1;
-      overflow: hidden;
-    }
-  }
+    flex 1
+    overflow hidden
 </style>

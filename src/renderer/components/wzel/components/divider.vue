@@ -9,7 +9,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.divider-component {
+.divider-component
   border-bottom rgba(7, 17, 27, 0.1)
-}
 </style>

@@ -1,3 +1,5 @@
+import { t } from '../locale'
+
 export const ONE_DAY = 3600 * 1000 * 24
 // const ONE_WEEK = ONE_DAY * 7
 
@@ -25,13 +27,13 @@ export const defaultFormatter = function(date) {
   const yesterday = today - ONE_DAY
   const tomorrow = today + ONE_DAY
   if (datetime === today) {
-    return 'Today'
+    return t('today')
   }
   if (datetime === tomorrow) {
-    return 'Tomorrow'
+    return t('tomorrow')
   }
   if (datetime === yesterday) {
-    return 'Yesterday'
+    return t('yesterday')
   }
   return getFormattedDate(date)
 }

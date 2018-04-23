@@ -1,9 +1,9 @@
-import TodoItem from '../../assets/js/todo_item'
+import TodoItem from '../../models/todo-item'
 import ListItemStore from './list_item'
 
-import { clearHours, getCurrentDatetime, getToday } from '../../utils/datetime'
+import { clearHours, getCurrentDatetime, getToday } from '../../components/wzel/utils/datetime'
 import { findItemIndexByKey } from '../../utils/array'
-import { loadTodoItems, storeTodoItems } from '../cache'
+import { loadTodoItems, storeTodoItems } from '../../../shared/cache'
 
 export const saveTodoItems = function() {
   storeTodoItems(state.todoItems)
