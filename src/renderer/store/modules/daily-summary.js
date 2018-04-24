@@ -1,7 +1,11 @@
 import DailySummary from '../../models/daily-summary'
-import TodoItemStore from './todo_item'
+import TodoItemStore from './todo-item'
 import PreferencesStore from './preference'
-import { clearHours, getToday, ONE_DAY } from '../../components/wzel/utils/datetime'
+import {
+  clearHours,
+  getToday,
+  ONE_DAY
+} from '../../components/wzel/utils/datetime'
 import {
   loadDailySummaries,
   loadLastSummaryDate,

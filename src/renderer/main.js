@@ -7,9 +7,9 @@ import wzel from './components/wzel/index'
 
 import { dateFormatter } from './utils/filters/dateformatter'
 import { savePreferences } from './store/modules/preference'
-import { saveTodoItems } from './store/modules/todo_item'
-import { saveListItems } from './store/modules/list_item'
-import { saveDailySummaries } from './store/modules/daily_summary'
+import { saveTodoItems } from './store/modules/todo-item'
+import { saveListItems } from './store/modules/list-item'
+import { saveDailySummaries } from './store/modules/daily-summary'
 
 Vue.config.productionTip = false
 Vue.use(wzel)

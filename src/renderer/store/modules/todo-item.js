@@ -1,5 +1,5 @@
 import TodoItem from '../../models/todo-item'
-import ListItemStore from './list_item'
+import ListItemStore from './list-item'
 
 import {
   clearHours,
@@ -8,6 +8,7 @@ import {
 } from '../../components/wzel/utils/datetime'
 import { findItemIndexByKey } from '../../utils/array'
 import { loadTodoItems, storeTodoItems } from '../../../shared/cache'
+import { createOrUpdateNotification, deleteNotification } from '../../ipc'
 
 export const saveTodoItems = function() {
   storeTodoItems(state.todoItems)
@@ -16,6 +17,10 @@ export const saveTodoItems = function() {
 const state = {
   todoItems: loadTodoItems(),
   detailedTodoItem: {}
+}
+
+const needNotificationProcess = function(item) {
+  return item.notify && item.planDatetime > getCurrentDatetime()
 }
 
 const getters = {
@@ -82,15 +87,14 @@ const mutations = {
   },
   SET_PLAN_DATETIME(state, { item, date }) {
     item.planDatetime = date ? new Date(date).getTime() : ''
-  },
-  SET_NOTI_DATETIME(state, { item, date }) {
-    item.notiDatetime = date ? clearHours(date) : ''
+    if (needNotificationProcess(item)) createOrUpdateNotification(item)
   },
   SET_WHOLE_TODO_ITEMS(state, todoItems) {
     state.todoItems = todoItems
   },
   SET_NOTIFY(state, { item, flag }) {
     item.notify = flag
+    if (needNotificationProcess(item)) createOrUpdateNotification(item)
   }
 }
 
@@ -111,13 +115,19 @@ const actions = {
     const listCopy = state.todoItems.slice()
     const index = findItemIndexByKey(listCopy, todoItem, '_id')
     listCopy.splice(index, 1)
+    if (needNotificationProcess(todoItem)) deleteNotification(todoItem)
     commit('SET_WHOLE_TODO_ITEMS', listCopy)
   },
   deleteTodoItemByListUUID({ commit, state }, listUUID) {
     const listCopy = state.todoItems.slice()
     const updatedListCopy = []
     listCopy.forEach(item => {
-      if (item.listUUID !== listUUID) updatedListCopy.push(item)
+      if (item.listUUID !== listUUID) {
+        updatedListCopy.push(item)
+      } else if (needNotificationProcess(item)) {
+        // delete possible notifications
+        deleteNotification(item)
+      }
     })
     commit('SET_WHOLE_TODO_ITEMS', updatedListCopy)
   },

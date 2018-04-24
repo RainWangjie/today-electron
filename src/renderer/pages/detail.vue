@@ -67,7 +67,6 @@ import WzDatePicker from '../components/wzel/components/date-picker/index'
 import Indicator from '../components/indicator'
 import InputBox from '../components/wzel/components/input'
 import { clearHours, getToday } from '../components/wzel/utils/datetime.js'
-import { createOrUpdateNotification, deleteNotification } from '../ipc'
 
 export default {
   name: 'DetailView',
@@ -177,7 +176,6 @@ export default {
       const item = this.detailedTodoItem
       this.setPlanDatetime({ item, date })
       this._checkDatetime()
-      if (item.notify) createOrUpdateNotification(item)
     },
     _handleResetItemTitle(newTitle) {
       this.setTitle({
@@ -221,7 +219,6 @@ export default {
           : this.$t('detail.cancelNotify')
       })
       this.setNotify({ item, flag })
-      flag ? createOrUpdateNotification(item) : deleteNotification(item)
     },
     ...mapMutations({
       setDetailedTodoItem: 'SET_DETAILED_TODO_ITEM',

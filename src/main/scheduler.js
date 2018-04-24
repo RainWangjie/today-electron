@@ -30,7 +30,9 @@ export const createOrUpdateNotification = function({
   // remove that notification and create a new one
   deleteNotification({ _id })
 
-  const newJob = nodeSchedule.scheduleJob(new Date(planDatetime), () => {
+  const date = new Date(planDatetime)
+  date.setSeconds(0) // exactly the start of that minute
+  const newJob = nodeSchedule.scheduleJob(date, () => {
     pushNotification(title, t('ontimeNotification'))
     deleteNotification({ _id }) // remove itself once invoked
   })
