@@ -1,3 +1,8 @@
+/**
+ * this module provides a persistence layer access to both
+ * main and renderer process
+ */
+
 const Store = require('electron-store')
 const store = new Store()
 

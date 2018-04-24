@@ -62,10 +62,12 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+
 import WzDatePicker from '../components/wzel/components/date-picker/index'
 import Indicator from '../components/indicator'
 import InputBox from '../components/wzel/components/input'
 import { clearHours, getToday } from '../components/wzel/utils/datetime.js'
+import { createOrUpdateNotification, deleteNotification } from '../ipc'
 
 export default {
   name: 'DetailView',
@@ -175,6 +177,7 @@ export default {
       const item = this.detailedTodoItem
       this.setPlanDatetime({ item, date })
       this._checkDatetime()
+      if (item.notify) createOrUpdateNotification(item)
     },
     _handleResetItemTitle(newTitle) {
       this.setTitle({
@@ -206,7 +209,7 @@ export default {
       if (!item.planDatetime) {
         this.$message({
           type: 'warn',
-          desc: "You haven't set a plan date yet"
+          desc: this.$t('detail.hasNoPlandate')
         })
         return
       }
@@ -218,7 +221,7 @@ export default {
           : this.$t('detail.cancelNotify')
       })
       this.setNotify({ item, flag })
-      // TODO: send a message to the scheduller module
+      flag ? createOrUpdateNotification(item) : deleteNotification(item)
     },
     ...mapMutations({
       setDetailedTodoItem: 'SET_DETAILED_TODO_ITEM',

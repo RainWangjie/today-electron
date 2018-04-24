@@ -16,7 +16,7 @@ Vue.use(wzel)
 
 Vue.filter('date', dateFormatter)
 
-// Save everything before quit application.
+// TODO: move this to App.vue
 window.onbeforeunload = e => {
   saveDailySummaries()
   saveTodoItems()

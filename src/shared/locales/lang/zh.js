@@ -18,6 +18,7 @@ export default {
   openWindow: '打开窗口',
   quit: '退出',
   listDeleted: '列表已删除',
+  ontimeNotification: 'Today 任务提醒',
   list: {
     addConfirm: '添加',
     addTitle: '添加列表',
@@ -50,7 +51,9 @@ export default {
     alertOverdue: '你真的要逾期完成吗？',
     deleteTitle: '删除 To-Do',
     deleteText: '该项操作不可撤销。',
-    deleteConfirm: '删除'
+    deleteConfirm: '删除',
+    willNotify: 'Today 将会通知你',
+    cancelNotify: '通知已取消'
   },
   modal: {
     title: '模态框标题',

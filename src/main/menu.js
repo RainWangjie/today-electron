@@ -1,5 +1,6 @@
 import { app, Menu } from 'electron'
 import i18n from './i18n'
+import * as types from '../shared/event-types'
 
 const $t = i18n.$t
 const template = [
@@ -10,14 +11,14 @@ const template = [
         label: $t('newTodo'),
         accelerator: 'CommandOrControl+N',
         click: (item, window, event) => {
-          window.webContents.send('create-new-todo')
+          window.webContents.send(types.ADD_NEW_TODO)
         }
       },
       {
         label: $t('newList'),
         accelerator: 'CommandOrControl+Shift+N',
         click: (item, window, event) => {
-          window.webContents.send('create-new-list')
+          window.webContents.send(types.ADD_NEW_LIST)
         }
       }
     ]
@@ -40,26 +41,16 @@ const template = [
         label: $t('seeTodos'),
         accelerator: 'CommandOrControl+T',
         click: (item, window, event) => {
-          window.webContents.send('go-to-main-view')
+          window.webContents.send(types.GO_TO_MAIN)
         }
       },
       {
         label: $t('checkSummaries'),
         accelerator: 'CommandOrControl+S',
         click: (item, window, event) => {
-          window.webContents.send('go-to-summary-view')
+          window.webContents.send(types.GO_TO_SUMMARY)
         }
       }
-      // { type: 'separator' },
-      // { role: 'reload' },
-      // { role: 'forcereload' },
-      // { role: 'toggledevtools' },
-      // { type: 'separator' },
-      // { role: 'resetzoom' },
-      // { role: 'zoomin' },
-      // { role: 'zoomout' },
-      // { type: 'separator' },
-      // { role: 'togglefullscreen' }
     ]
   },
   {
@@ -79,7 +70,7 @@ if (process.platform === 'win32') {
       label: $t('settings'),
       accelerator: 'CommandOrControl+,',
       click: (item, window, event) => {
-        window.webContents.send('go-to-settings-view')
+        window.webContents.send(types.GO_TO_SETTINGS)
       }
     },
     { type: 'separator' },
@@ -101,7 +92,7 @@ if (process.platform === 'darwin') {
         label: 'Settings',
         accelerator: 'CommandOrControl+,',
         click: (item, window, event) => {
-          window.webContents.send('go-to-settings-view')
+          window.webContents.send(types.GO_TO_SETTINGS)
         }
       },
       { type: 'separator' },

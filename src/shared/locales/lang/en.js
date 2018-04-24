@@ -18,6 +18,7 @@ export default {
   openWindow: 'Open Window',
   quit: 'Quit',
   listDeleted: 'List deleted',
+  ontimeNotification: 'Today To-Do Notification',
   list: {
     addConfirm: 'Add',
     addTitle: 'Add List',

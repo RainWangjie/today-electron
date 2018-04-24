@@ -8,47 +8,56 @@
 
 <script>
 import { ipcRenderer } from 'electron'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 import nodeSchedule from 'node-schedule'
+
 import 'font-awesome/css/font-awesome.css'
 
+import * as types from '../shared/event-types'
 import { getToday } from './components/wzel/utils/datetime'
 
 export default {
-  name: 'VueTodo',
+  name: 'today',
   created() {
-    this.passDayJobs()
-    this.bindRoutingMenuCommands()
+    this._bindIpc()
+    this._passDayJobs()
   },
   methods: {
-    bindRoutingMenuCommands() {
-      ipcRenderer.on('go-to-summary-view', () => {
+    _bindIpc() {
+      ipcRenderer.on(types.GO_TO_SUMMARY, () => {
         this.$router.push({
           path: '/summary'
         })
       })
-      ipcRenderer.on('go-to-settings-view', () => {
+      ipcRenderer.on(types.GO_TO_SETTINGS, () => {
         this.$router.push({
           path: '/settings'
         })
       })
-      ipcRenderer.on('go-to-main-view', () => {
+      ipcRenderer.on(types.GO_TO_MAIN, () => {
         this.$router.push({
           path: '/main/today'
         })
       })
+      ipcRenderer.on(types.NOTIFICATION, ({ title, text }) => {
+        this.$noti({
+          title,
+          desc: text,
+          type: 'info'
+        })
+      })
     },
-    passDayJobs() {
+    _passDayJobs() {
       const rule = new nodeSchedule.RecurrenceRule()
       rule.hour = 0
       rule.minutes = 0
 
-      /* eslint-disable no-unused-vars */
       nodeSchedule.scheduleJob(rule, () => {
         this.setToday(getToday())
         this.doSummary()
       })
     },
+    ...mapGetters(['todoItems']),
     ...mapActions(['doSummary']),
     ...mapMutations({
       setToday: 'SET_TODAY'
