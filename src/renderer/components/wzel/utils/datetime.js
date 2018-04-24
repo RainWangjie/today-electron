@@ -21,27 +21,37 @@ export const countDatesToTodayFrom = function(date) {
   return Math.floor((getToday() - clearHours(date)) / ONE_DAY) + 1
 }
 
-export const defaultFormatter = function(date) {
-  const datetime = clearHours(date)
+export const defaultFormatter = function(date, showTime = false) {
+  let ret = '' // returned string
+  const pureDate = clearHours(date)
   const today = getToday()
   const yesterday = today - ONE_DAY
   const tomorrow = today + ONE_DAY
-  if (datetime === today) {
-    return t('today')
+
+  ret =
+    pureDate === today
+      ? t('today')
+      : pureDate === tomorrow
+        ? t('tomorrow')
+        : pureDate === yesterday ? t('yesterday') : getFormattedDate(date)
+
+  if (showTime) {
+    ret += ` ${getFormattedTime(date)}`
   }
-  if (datetime === tomorrow) {
-    return t('tomorrow')
-  }
-  if (datetime === yesterday) {
-    return t('yesterday')
-  }
-  return getFormattedDate(date)
+
+  return ret
 }
 
 export const getFormattedDate = function(date) {
   const innerDate = date ? new Date(date) : new Date()
-  return `${innerDate.getFullYear()} / ${innerDate.getMonth() +
-    1} / ${innerDate.getDate()}`
+  return `${innerDate.getFullYear()}/${innerDate.getMonth() +
+    1}/${innerDate.getDate()}`
+}
+
+export const getFormattedTime = function(date) {
+  if (!date) return ''
+  const innerDate = new Date(date)
+  return `${innerDate.getHours()}:${innerDate.getMinutes()}`
 }
 
 export const getDayCountOfMonth = function(year, month) {

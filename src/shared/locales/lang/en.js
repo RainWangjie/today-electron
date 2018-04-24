@@ -51,7 +51,9 @@ export default {
     alertOverdue: 'Are you sure to do this overdue?',
     deleteTitle: 'Delete To-Do',
     deleteText: 'This actions cannot be revoked.',
-    deleteConfirm: 'Delete'
+    deleteConfirm: 'Delete',
+    willNotify: 'Today will notify you',
+    cancelNotify: 'Notification is cancelled'
   },
   modal: {
     title: 'modal Title',

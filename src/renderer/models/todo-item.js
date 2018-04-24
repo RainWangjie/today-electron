@@ -12,6 +12,6 @@ export default class TodoItem {
     this.completeDatetime = ''
     this.dueDatetime = ''
     this.planDatetime = ''
-    this.notiDatetime = ''
+    this.notify = false
   }
 }

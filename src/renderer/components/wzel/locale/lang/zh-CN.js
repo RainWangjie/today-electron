@@ -21,5 +21,7 @@ export default {
     Thu: '四',
     Fri: '五',
     Sat: '六'
-  }
+  },
+  date: '日期',
+  time: '时间'
 }

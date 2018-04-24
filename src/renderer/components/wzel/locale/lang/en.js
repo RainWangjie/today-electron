@@ -18,5 +18,7 @@ export default {
     Thu: 'Thu',
     Fri: 'Fri',
     Sat: 'Sat'
-  }
+  },
+  date: 'Date',
+  time: 'Time'
 }

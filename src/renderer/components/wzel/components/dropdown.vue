@@ -42,7 +42,7 @@ export default {
 .dropdown-component
   border-radius 4px
   min-width 100px
-  padding 12px
+  padding 8px
   background white
   standard-shadow()
   transition 0.2s all

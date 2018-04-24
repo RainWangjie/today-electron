@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'Segment',
+  name: 'wz-segment',
   props: {
     options: Array
   },

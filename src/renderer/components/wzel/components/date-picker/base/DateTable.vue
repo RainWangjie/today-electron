@@ -1,6 +1,6 @@
 <template>
   <div class="date-table">
-    <div class="week-hinter">
+    <div class="dayof-week">
       <span class="date"
             v-for="day in days"
             :key="day">
@@ -180,11 +180,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../../../style/variables.styl'
-@import '../../../../../style/mixins.styl'
+@import '../../../styles/variables.styl'
+@import '../../../styles/mixins.styl'
 
 .date-table
-  .week-hinter
+  width 100%
+
+  .dayof-week
     display flex
     width 100%
 
@@ -200,10 +202,10 @@ export default {
     display flex
     flex-wrap wrap
     margin-top 8px
+    width 100%
 
     .cell
-      flex 30px 30px 1
-      width 30px
+      width 14.28%
       line-height 30px
       text-align center
       font-size 14px

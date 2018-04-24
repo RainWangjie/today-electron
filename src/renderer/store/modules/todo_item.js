@@ -1,7 +1,11 @@
 import TodoItem from '../../models/todo-item'
 import ListItemStore from './list_item'
 
-import { clearHours, getCurrentDatetime, getToday } from '../../components/wzel/utils/datetime'
+import {
+  clearHours,
+  getCurrentDatetime,
+  getToday
+} from '../../components/wzel/utils/datetime'
 import { findItemIndexByKey } from '../../utils/array'
 import { loadTodoItems, storeTodoItems } from '../../../shared/cache'
 
@@ -77,13 +81,16 @@ const mutations = {
     item.dueDatetime = date ? clearHours(date) : ''
   },
   SET_PLAN_DATETIME(state, { item, date }) {
-    item.planDatetime = date ? clearHours(date) : ''
+    item.planDatetime = date ? new Date(date).getTime() : ''
   },
   SET_NOTI_DATETIME(state, { item, date }) {
     item.notiDatetime = date ? clearHours(date) : ''
   },
   SET_WHOLE_TODO_ITEMS(state, todoItems) {
     state.todoItems = todoItems
+  },
+  SET_NOTIFY(state, { item, flag }) {
+    item.notify = flag
   }
 }
 

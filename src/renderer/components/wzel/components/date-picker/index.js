@@ -1,3 +1,3 @@
-import DatePicker from './DatePicker.vue'
+import WzDatePicker from './date-picker.vue'
 
-export default DatePicker
+export default WzDatePicker

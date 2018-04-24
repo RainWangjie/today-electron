@@ -33,24 +33,11 @@
                     :year="year"
                     @date-pick="handleDatePick"></date-table>
       </div>
-      <div class="date-panel-body-footer border-1px horizontal">
-        <wz-button size="small"
-                   :text="cancelText"
-                   type="inverse"
-                   @click="handleCancel"></wz-button>
-        <wz-button size="small"
-                   :text="confirmText"
-                   type="primary"
-                   :has-value="true"
-                   :value="value"
-                   @click="handleConfirm"></wz-button>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import WzButton from '../../button'
 import DateTable from '../base/DateTable'
 
 import { t } from '../../../locale'
@@ -86,7 +73,7 @@ export const shortcuts = [
 
 export default {
   name: 'wz-date-panel',
-  components: { WzButton, DateTable },
+  components: { DateTable },
   props: {
     shortcut: {
       type: Boolean,
@@ -106,12 +93,6 @@ export default {
     headerText() {
       if (!this.year) return ''
       return `${this.year} / ${this.month + 1}`
-    },
-    confirmText() {
-      return t('calendar.confirm')
-    },
-    cancelText() {
-      return t('calendar.cancel')
     }
   },
   watch: {
@@ -134,12 +115,6 @@ export default {
     },
     _changeYear(val) {
       this.date = switchMonth(this.date, val * 12)
-    },
-    handleCancel() {
-      this.$emit('pick-cancel')
-    },
-    handleConfirm() {
-      this.$emit('pick-confirm')
     },
     handleDatePick(pickedDate) {
       this.$emit('date-pick', new Date(pickedDate.getTime()))
@@ -172,12 +147,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../../../style/variables.styl'
-@import '../../../../../style/mixins.styl'
+@import '../../../styles/variables.styl'
+@import '../../../styles/mixins.styl'
 
 .date-panel
   display flex
   height 100%
+  width 100%
 
   .date-panel-sidebar
     flex 0 0 50px
@@ -235,10 +211,6 @@ export default {
         color $text-color-dark-grey
 
     .date-panel-table-container
+      width 100%
       padding 12px 0 6px
-
-    .date-panel-body-footer
-      padding 8px 0 0
-      top-border($light-border-color)
-      text-align right
 </style>
