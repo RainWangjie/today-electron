@@ -167,10 +167,14 @@ export default {
         this.timePicker = this.timePanel.$mount(this.$refs.timePicker)
         this.timePicker.value = this.value
         this.timePicker.$on('hour-changed', hour => {
-          this.innerValue = new Date(this.innerValue).setHours(hour)
+          this.timePicker.value = this.innerValue = new Date(
+            this.innerValue
+          ).setHours(hour)
         })
         this.timePicker.$on('minute-changed', minute => {
-          this.innerValue = new Date(this.innerValue).setMinutes(minute)
+          this.timePicker.value = this.innerValue = new Date(
+            this.innerValue
+          ).setMinutes(minute)
         })
       }
     }

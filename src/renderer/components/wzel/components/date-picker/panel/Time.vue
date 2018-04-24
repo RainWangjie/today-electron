@@ -78,8 +78,11 @@ export default {
       setTimeout(() => {
         this.hourScroll.refresh()
         this.minuteScroll.refresh()
-        this.value && this.changeHour(this.value.getHours())
-        this.value && this.changeMinute(this.value.getMinutes())
+        const value = new Date(this.value)
+        if (value) {
+          this.changeHour(value.getHours())
+          this.changeMinute(value.getMinutes())
+        }
       }, 400)
     }
   },
