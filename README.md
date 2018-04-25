@@ -4,7 +4,7 @@
 
 > An app helps you to remember things and evaluates your productivity. WIP.
 
-[中文说明](../README-CN.md)
+[中文说明](./README-CN.md)
 
 Today is a cross-platform GTP application built on the power of Electron and Vue.js and with :heart:. It helps you to keep track of your tasks, provide suggestions for today and evaluate how productive you are.
 
