@@ -42,8 +42,10 @@
 import { ipcRenderer } from 'electron'
 import Draggable from 'vuedraggable'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+
 import clickoutside from '../components/wzel/directives/clickoutside'
 
+import * as types from '../../shared/event-types'
 import BlankView from '../pages/blank'
 import TodoItem from './todo-item'
 import TodoItemHeader from './todo-item-header'
@@ -100,7 +102,7 @@ export default {
     ...mapGetters(['currentListItem', 'currentTodoItems', 'sortMode'])
   },
   created() {
-    ipcRenderer.on('create-new-todo', event => {
+    ipcRenderer.on(types.ADD_NEW_TODO, event => {
       this._handleAddTodoItem()
     })
     // use vue-i18n to locale commands names

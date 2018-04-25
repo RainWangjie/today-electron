@@ -27,10 +27,10 @@
 
 <script>
 import { ipcRenderer } from 'electron'
-
 import Draggable from 'vuedraggable'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+import * as types from '../../shared/event-types.js'
 import AddItem from './add-list-btn'
 import ListItem from './list-item'
 import SpecialListItem from './special-list-item'
@@ -81,7 +81,7 @@ export default {
       command.title = this.$t(`list.commands.${command.title}`)
     })
 
-    ipcRenderer.on('create-new-list', event => {
+    ipcRenderer.on(types.ADD_NEW_LIST, _ => {
       this._addListItem()
     })
   },
